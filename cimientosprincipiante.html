@@ -53,24 +53,27 @@
 
         /* Tooltip (Cajita flotante) */
         .tooltip-pokedex {
-            visibility: hidden;
-            width: 220px;
-            background-color: #1f1f1f;
-            color: white;
-            text-align: center;
-            border-radius: 10px;
-            padding: 15px;
-            position: absolute;
-            z-index: 100;
-            bottom: 110%;
-            left: 50%;
-            transform: translateX(-50%);
-            opacity: 0;
-            transition: opacity 0.3s;
-            border: 2px solid #1abc9c;
-            box-shadow: 0px 10px 30px rgba(0,0,0,0.8);
-            pointer-events: none;
-        }
+    visibility: hidden;
+    width: 250px; /* Un pelín más ancho ayuda a la proporción */
+    background-color: #1f1f1f;
+    color: white;
+    text-align: center;
+    border-radius: 10px;
+    padding: 15px;
+    position: absolute;
+    z-index: 100;
+    
+    /* CAMBIA ESTO: En lugar de bottom: 110%, usa esto para que no se corte */
+    bottom: 50%; 
+    left: 110%; /* Esto hace que salga a la derecha de la carta en lugar de arriba */
+    
+    transform: translateY(50%); /* Lo centra verticalmente respecto al cuadro */
+    opacity: 0;
+    transition: opacity 0.3s;
+    border: 2px solid #1abc9c;
+    box-shadow: 0px 10px 30px rgba(0,0,0,0.8);
+    pointer-events: none;
+}
 
         .carta-item:hover .tooltip-pokedex {
             visibility: visible;
