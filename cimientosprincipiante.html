@@ -3,151 +3,167 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mis Productos - Registro TCG</title>
+    <title>Caja Cimientos - Mi Inventario</title>
     <style>
-        body { font-family: sans-serif; margin: 0; background: #121212; color: white; }
+        body { font-family: 'Segoe UI', sans-serif; margin: 0; background: #121212; color: white; }
         header { background: #1f1f1f; padding: 20px; text-align: center; border-bottom: 3px solid #1abc9c; }
-        .nav-back { padding: 10px; display: block; color: #1abc9c; text-decoration: none; font-weight: bold; }
+        .nav-back { padding: 10px; color: #1abc9c; text-decoration: none; font-weight: bold; display: inline-block; }
         
-        .container { width: 90%; margin: auto; padding: 20px; }
+        .container { width: 90%; max-width: 1100px; margin: auto; padding: 20px; }
         
-        /* Estilo de la caja de producto */
-        .producto-card {
-            background: #1e1e1e;
-            border-radius: 15px;
-            padding: 20px;
-            margin-bottom: 30px;
-            border: 1px solid #333;
+        /* Títulos de los grupos de 20 cartas */
+        .grupo-titulo {
+            background: #1abc9c;
+            color: #121212;
+            padding: 10px 20px;
+            border-radius: 5px;
+            margin-top: 40px;
+            font-size: 18px;
+            display: inline-block;
         }
-        .producto-header { display: flex; align-items: center; gap: 20px; border-bottom: 1px solid #444; padding-bottom: 15px; }
-        .badge { background: #e74c3c; padding: 5px 10px; border-radius: 5px; font-size: 12px; }
 
-        /* Lista de cartas obtenidas */
         .lista-cartas {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
             gap: 15px;
             margin-top: 20px;
         }
+
+        /* La carta cuadrada */
         .carta-item {
             background: #2a2a2a;
-            padding: 10px;
             border-radius: 8px;
+            border: 1px solid #444;
+            aspect-ratio: 1 / 1; 
+            display: flex;
+            align-items: center;
+            justify-content: center;
             text-align: center;
-            font-size: 14px;
-            transition: transform 0.2s;
+            padding: 10px;
+            position: relative;
+            cursor: help;
+            transition: all 0.3s;
         }
-        .carta-item:hover { transform: scale(1.05); background: #333; border: 1px solid #1abc9c; }
-        .raridad-rara { color: #f1c40f; font-weight: bold; } /* Dorado para raras */
-/* Estilo del contenedor de la carta */
-.carta-item {
-    position: relative; /* Necesario para posicionar cosas dentro */
-    cursor: help;
-}
 
-/* El cuadro que aparecerá al pasar el ratón */
-.tooltip-pokedex {
-    visibility: hidden;
-    width: 250px;
-    background-color: #2c3e50;
-    color: #fff;
-    text-align: center;
-    border-radius: 10px;
-    padding: 10px;
-    position: absolute;
-    z-index: 100;
-    bottom: 125%; /* Aparece arriba de la carta */
-    left: 50%;
-    margin-left: -125px;
-    opacity: 0;
-    transition: opacity 0.3s;
-    border: 2px solid #1abc9c;
-    box-shadow: 0px 10px 20px rgba(0,0,0,0.5);
-}
+        .carta-item:hover {
+            border-color: #1abc9c;
+            background: #333;
+            transform: translateY(-5px);
+        }
 
-/* Mostrar el cuadro al pasar el ratón */
-.carta-item:hover .tooltip-pokedex {
-    visibility: visible;
-    opacity: 1;
-}
+        /* Tooltip (Cajita flotante) */
+        .tooltip-pokedex {
+            visibility: hidden;
+            width: 220px;
+            background-color: #1f1f1f;
+            color: white;
+            text-align: center;
+            border-radius: 10px;
+            padding: 15px;
+            position: absolute;
+            z-index: 100;
+            bottom: 110%;
+            left: 50%;
+            transform: translateX(-50%);
+            opacity: 0;
+            transition: opacity 0.3s;
+            border: 2px solid #1abc9c;
+            box-shadow: 0px 10px 30px rgba(0,0,0,0.8);
+            pointer-events: none;
+        }
 
-/* Imagen dentro del cuadro */
-.tooltip-pokedex img {
-    width: 100%;
-    border-radius: 5px;
-    margin-bottom: 10px;
-}
+        .carta-item:hover .tooltip-pokedex {
+            visibility: visible;
+            opacity: 1;
+        }
+
+        .tooltip-pokedex img {
+            width: 100%;
+            border-radius: 5px;
+            margin-bottom: 10px;
+        }
+
+        .raridad-rara { color: #f1c40f; }
+
+        #buscador {
+            width: 100%; 
+            padding: 15px; 
+            border-radius: 8px; 
+            border: 1px solid #1abc9c; 
+            background: #1e1e1e; 
+            color: white; 
+            font-size: 16px;
+            margin-bottom: 20px;
+        }
     </style>
 </head>
 <body>
 
-    <header>
-        <a href="index.html" class="nav-back">← Volver al Inicio</a>
-        <h1>Inventario de Productos</h1>
-    </header>
+<header>
+    <a href="productos.html" class="nav-back">← Volver a Colecciones</a>
+    <h1>Caja de Principiantes: Cimientos</h1>
+</header>
 
-    <div class="container">
-        <div style="margin-bottom: 20px;">
-    <input type="text" id="buscador" placeholder="Buscar carta por nombre..." 
-    style="width: 100%; padding: 12px; border-radius: 8px; border: 1px solid #1abc9c; background: #2a2a2a; color: white; font-size: 16px;">
-        </div>
-        <div class="producto-card">
-            <div class="producto-header">
-                <img src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEAAkGBxETEhUTExMVFRUWFhYaFhgVFxYWFxoVFxUZFhgVFRcYHSgiGBolGxUWITEhJSkrLi4uGB8zODMsNyguLisBCgoKDg0OGxAQGy0dHyUtKy0tLy8tLS0tKy0vLS0tLS0vLS0tLS0tLS0tKy0tLS0tLS0tLS0tLS0tLS0tLS0tLf/AABEIAOEA4QMBIgACEQEDEQH/xAAcAAEAAgMBAQEAAAAAAAAAAAAABAYCAwUBBwj/xABCEAACAQIDBAcFBgQFAwUAAAABAgMAEQQSIQUxQVEGEyJhcYGRMkJSobEHFCPB0fAzYnKSFYKywuEkY6I1Q3Oj8f/EABoBAQADAQEBAAAAAAAAAAAAAAABAgMEBQb/xAAsEQACAgEEAQIFAwUAAAAAAAAAAQIRAwQSITFBIlETYYGRoTJCsQUUI9Hw/9oADAMBAAIRAxEAPwD4bSlKAUpSgFKUoBSlKAUpSgFKUoBSlKAUpSgFKUoBSlKAUpSgFKUoBSlKAUpSgFKUoBSlKAUpSgFKUoBSlZBTyNAY0rPq25H0p1LfCfQ0BhSszE3I+lOqblQGFKz6puVOqblQGFK29Q3Kn3Z+X0oDVSt4wj/D8xXowUnw/MUBHpUn7k/KvfuL93z/AEoCLSpP3NuY/wDL9KwMNt7D0b9KUDTSsynePn+leBTU0DGlZ5DyNOrbkfSlAwpWfVtyPpXhjI4GlAxpSlQD6F9nXR3D4nDyySLmdXKi9iLBAw08SapOImuzEIi6nshQQNdwvrX0r7F+1HOv86H1UivnGPiKyyDlI49GIqUDT1h/l/sT9K2QrI18tja25V47uFaKn7JPtjuX/Vb86vGKboM09XN3jytTqpvib1NS2FeVp8JFbIvVS/G393/NOpk+M+v/ADUmlR8OJNkcRP8AF9Kzs/xD0X9K217RQQs1DP8AEP7V/Svbv8fyH6VnXlNiFmPb+M+lBn+NqyqZNJHIUCqIzlAYljlLD3v5QaOKQRDyt8b+p/WvREfib+4/rVu6O9HT7eIFlYdldCSp96+4X4VJ6RdFsNhcOZFlMjl0EZzC1jfMCo0JAF71EZRbos1RTBhu9v7jWa4Re/1qQiVKw2FZ2CopZjuA3muqOJFSEuDXl61mMGnwj0rpbNwLzOsaWLNe1zbcLnXwBq67I6JRBxe7kZb3PZDfy2tdfHl40yPHj7JSZ87TBp8C+grYMMvwj0FfUsb0YgkzKEVWIHaA3EbtBp+tU7bvR6TDEZu0rbmA48jyNMeXHPxRpGFnA6kchTqRyFSslYEVvS9izx0RmjHIelYMg5D0qSy1JEMFhmdtwuAL8rj5/KjijJo5RTu9Kh7Q9hvAf6gPzr6L0Gg7bthjeUGMNcJdYTmzsOsFgMwjuRrbiKo/TKRGlmaPLlMhtk9g66lL+6TcjuIrlyPhqipV70rylcRJ9P8AsPk/FxC/yofmaqnSOPLjMUvLETj/AO1q7v2LzWxrr8UJP9rL+tc7p1Hl2jihzlzf3qr/AO6rwBw48OXIUC5P7vU58MI5nAtbKbWN/eU+R03VFw87IwZTYj92PdXTx8gMt9NVPu2Oq3Av73jUq1lXsdMYwenk/wB1r7HPfefGpOEw1yv9UfoxP6VGl3mu5sTGRm0ZWzAAAnUNYkjwIuanUTlCNpFtDhhly7ZuvY482GKi9vdufHOU/SpH+CYrq45epbq5XVI3umVnfRVvm7NzxawHG1dDbWIzHqI1BdrC+g1LAhfUAk1dIdvwYQTYNurdMLh4ZMO2ZWEmJjGYm4J1MpU23jKariySlC2iNbihiyuMHf8As+dbQ2TPBMMPKmSU5OzdW9s2W5S49L1P250UxWFEfWZG61yidUxftj3ScoF76W7jVtj25gZ22djMRNGJ4jlnQdptCQkrADcGGe28BzyqDsfpPD91lRwyNHieuwikSSkEMJGV3sbAnNdv+4TbQVpuZxlf2l0c+7hxNiIknSMSGAZ2btbkzgZM3cCfOp+G6ESSNhFjlVjiYzLcqVEcahblte0buBYc67bbawEmImxUkUv48KoyTYYMsMgGQSCQnQbh2ReuXhOnAhGCaGNmbDQGKQSZVV0YITlKlivaQbx+lLbBX9qQYRVX7vNJK2Zg2ePIMqgWddTcMSbcdDetWx4w2IhDC6mWMEcwXHZ893nTHYiBriGAxKWJ7cnWsL+4pCKFQeBPM1J2ZhAAJnYqAewB7RO4Ecd+62t+VqmUlFcloxcnSLfi9rYcklnaSwuyorMFW+UdZlXS2nZvpcaVLeAYnDPGFT8QBoWuNGU5tLDS4W3nVU2biWGbLH3GMZgxG+xAXdxINd3BYnDQRieFy8bWJXX8OUmzKL7gbrcH1IauSORqStUavFx6XZVESu30ShY4uK1wAwuRwBB31rkweeWR8pjizs17aKt72HfY6CrYVSHDBFSyvJZyD2gygEXJ3kivUnmilS7MpelWyLsLZssMb9ZFlkN7yM1soNr+JuOFzrVlwG0QVBNzYAKxNySTlBPEjdrxqtYjEKxKnMUQBmLte9zZRpuuTWvDyyu6hTlIbUjJqjKBbmpHAAW1Hl5+RuUrZZStFzmxHVlTfMzEjdvyqxJ7r5ag7ddpYmUaIY2bdusLjgddbd1ROkOEkRUlL5ljym1lW7AHUltwLG/dp41JimZsit2WKXBHBtQy+Gi1RcMtF07KJBs8tHJJuEeXfxLG1h321qD1ZJtzrs7QSUvLmLHt9uxumYKAN3Zvly1BRNR++FepjyWei8dqyGYP5l+Z/wBINejAMdQGPDSNzr5gcj6VY8LEvULc9rqsQtrFmzSgKOzwGXrLnhrXYxE6uyMoa0bktdWUjMoBIDWFgGJN9dBzqzynDOPJSZ9loq2frVfI7ANGoU5Qb6lr20PCqtts9keP5Vfuk2f+IVyqIzHrvLMMpbTjZbb/AHRVA28dF8TWeV3jbMGjj0pSvPBcfsmny7SjHxpKvohf/ZUv7TYsu0Zf5kib/wAAv+2uP9nEltpYY83I/uRl/Oux9psjPiFkKgFoV0FyOyW3Egc7eIO+rwBVQQa3YdjmHn9DX0HprPBPBIn3Yxz4eOCVJgAVkw7lY9WHPPex+DutXz2D2h41rFkGcu+vEYggjQjUeIrKbfWuryCdco3yTgy5yAwz5irbiAfZPcRpUibaKGMosESXUgsos1y4bNu0ItbTgagpvHiPrVgi2ROQW/6aMBnU6LmujFWIW1zuJ529KrVImTcnbOc+23tokS6AXCkHRGTQ5tBlYi27dyrL/GsXJfK5N94RFO9QhGi8VAHlUp4irFTjI9FJ/DCA317Iy6+6dfDmK3nARO1vvGLlXW+WOTQhgo9sWt/Ev3rahU5WKxuKsRK0oDX0cFbjNmOhA94386g1Z/8AAYVJP3fEuuntFEN89jpdSRZk9fOtWJ2A0hUxRLCoup62UElgxuxIJAA3eQ8pQOHhsOztlUEn6d5q34fAKnUySXCxnS97e4N3OzE+ArhbCiRJOslj6xAzoBey5gozPrvCqwIGntA8K7mwnzM0MrF4/aQsbsALCwJ7stc+R3Jexvj6ryXqHbGHiUFnQFgMtrEtf4bb6o0WyWbFYqJAMki50A0s3tCw8AT5V2ocDh+rvLHdQNNCL72K68De3lVS2tih1mcXi7RF0JB0W2UW3AAkeZrPJTibRVOzPZs5YKkzEBHYyg6X6sX17swF/CvoZgE0U6DiUkQ/z5QGA8R9RXzuY5kz7zHcMDvKkdoHyI9Kuex9sr1cLmzLGAjX17JW1z5getaQi0zl1FNELHJ1cfVse27ZjY7kUWAvzvc17DMsQkswidwmVrDNoGvvBHwacjXT6SpGIiikdmQMht7jjVb9xribTgEmGDK4QpIA7MQoyldLEnmu4a6VSf6hjVxR2tm418TH1csglc5Ge4FlW/shQBYWB3i51rftDaSp7WQ5Tva4tu3Zd9wBpzFcHBYpMNhmlWTMGeytcEsFGtiN/bZ+J3VXIp3mcSyHS+g4c+NY5J7VwdGPHulz0WbFY2Rx2Y2WLNmAsFtY3DZF4d5vesMVjA8qyBFW2tl421ueZNWvYeLQx2IFiLfs8fKqxtfDCOYi1lYEi2ovas9Hq/Xsl5O+CSdUS8JjpJVjHZUPJ1R0JNhHmZt43hiP/wAqVFhXOpZgMudrBQhd1BykkMQNDv3XFq4UePZFVVbRSWXsj2mBBbU77NbyFRsVtiVtCz210uANd4sqg92+vaUW+jny4miNtvFuzyoXZkDdm9uDbzYb9/qapu3zqo7j9asuJmLXuBqbk6kk67ySeZqr7fP4g/pH1NTqOMdHFNUc2vKUrgKHZ6HTZMdhm5TJ9bVaftJRRMlt4bEhu3nuwnLX19m4cHLwvVI2TJlniblIh9GFfQvtUfM6ez2ZJhooU2dIXW9t/HU2v32vUx7BvbZ8/wDhbzQ4iOeJ8NAsyMR1kCws0hQFfaszsLMAQCN9r1Qo948a+h7FwMM2yjI+SBxG8SyxShWmCsR1U8RsGNtwNza1iL18+miKOyN7SMynxVip394NaxIZnPvrXW2ff++daa0fZB7ernFh1jJLLgImEp/iSKzWL3sQQuZQCPEcNKpdTMDtAxWyIhINyWUNcZWXLb4e0bi/AcqqwWI45kEuTEQm6khY4swZspBUNc5fYQk9/DfW6XE5ELtJjCMzE5YxCnaId2NlW/tMe++lr3qvzdJMUwIzqoa9wiKAQd+8HmfWo2J2riJBlkldhyJ0qEgT9o7WiePKgnzX9qWVmAsbgKpY8BbzrjHv1ryvQKskC04rFphoMPGyBuwWcaXvL2jv7rDwFcuTFuMQuRciqFTJyD5bqTzAy+FYY/E5isjAZuysa6k9nQEgb+4cakxbMnWPrpEKJmv2h23c3IFuA3k338ta5tlzs33ukkTDtRCoSAPf32k4cNPUVns2bJhmiOGaeZHZlsCxF2t2rXNwbnT/AJqJsnBsbrrqDyNtRvPioqz4bMmVb6aZubG+8mtMuKDik+zWMpXZVkjxED5p4njEmpzDQgn2hwuL6jfY10tlT9U5S2ZHXMgHEcVB5g7qtfTZc+DIABN1tfhwJv4XqjYYOUyD+JEc8d+I4r6GsU2uPsUnG1z9SzxY9JIyoObskAH2t118GB9RUno7hWBdW7UTlSCbNly3Nj37vDLXFwwieMyRi2Y37wxsCKxJaBvxJCbjQA2Nhvud9+HrUSnFvc7MVjlFbYtfU2dL5hNiFhT2IwL8RoL68t+7wri/eMnZ4H97qumDhwsmHJZLSMpKtYA2G5rqTfhcHnVJ2gyMxIWRgNCbZRccBe5Pyrhk25tNUd+FxcLi7O9sja4Udo7td/AfQfrW/aWIllQSLGRGDo73APeo3kd+nnvrhYJUfKqCwuL31LE8WtwHAV38Xt64GGjVZDoDrZFO7Vgbk6jQetYbammlydCfBDnFc+WuliEIFjvG/hr4Vzpq+ow8otn6IslVjbh/F8hVneqrtdryt5fSo1X6DyJ9kKlKV55Q9U21r6v9p754ojobGFtBY2kik0J94dga24kX5fKBX1Dpb28BC5AucLgmvpe98hHfv486mPYNvRiSH/C2TEwFYm60JiE1XrVdnTrrXMbhmsrkWsbXG6qNtEATS20HWPbwzG3yr6P9mCSHCsIZAXLy5sPKT1UqWUHLv6pruozAEG+qnQj5vjmYuS3tELfW/ujjc1rEHs/CtNbpdw/fAV7DFetqtlTUoreIB3ipCQ1sEdbQwMjcQzhRwNYnBtwsa6PVV6I61/t15Fs5hwz8vpWcMFjdxZRqfAa2866OSteJizKRe1+NRLTpLgjk7PQqQKjzNbrHJF+SAWCLxAvfytXWTBrIpU7jy+VqqWHlYKsa3sB5k8zyrsYfa8kaFTlJIsDfUd5A0NYLA6OqM4rg6Y/BzJGAxy35nNcG/f2b6eFQ3nlVXkfMcttSwCkMbAqo1t3kb65iYzLdtc2/MSdSOdZ7OxHWkiSwsBa50ty8d/rVXjcZbS+9NcdmcnSCRkEehUG+7W976m+tQ9pY6UukkaXVNf6uY52OvpXVIw6MHC3K717jpcXrHFPE8YyArlUBRpfsjSmXFu6XBVP023yaNlFUlKAkxy2eM+Oo876Gt8UIxQeZm6sRuVKnVrDgfH865Wzc7R2sxZHulgePtoLDX4rd5NdobCmJMkfZEoBk1GUHIGJ7N9WDZvBq4fhSvgpOcVF2yBhtrNnAAsgNhYbha2n18604uSYrbKgsPZsdfEk8/AVYcF0dCLmeRBdcw0PMAi546/KsdoKiucpDKBvBDA+YFuRtwvUvSzm7aMceqxYY7U/N/cq64ohcpyRXHaynM7X0yqASRXW6NdZmGQCNF9qVx+Jl+FRwv3A+NSdh7BkmdmSMkDWyKBa54ud3drXYTFjDq8QhtIbrIZBYi/ADe3A33eNYy0zXZ149VGbW3k5eLaubKalzSX05VDlr19O7jZ3Zp7lZGc1Uton8V/GrXIaqOKN3Y/zH61TVvhHlz7NNK9ryuMoeivqW0wW2PA1tPuwF9N8Ug0Pkfl3V8sr6dhXzbGj3XEWLTW97KVewt/Sd+nyqF2DX9m+y2xAkEbNHKjqyPqUYaP1Ui62GaFTmGuo5WqtdIEYYiUMuVgxBF8wBU5TY2FxppcA91dnoNtKWFZz1LS4bsfeerZllRWWRBJGVINh2r+W6uP0ggRJssZYxhR1ZcEOUzMqlwdzWGug8K1RBFc9keX0rPDtWB9kV5Eda3umQdFDW5FU+9bxB+ovUeM1uC16GKXBi4vwbhAeDIfBh+dqzGCmtfq2I5gX+lR8leoCNxIPcbfStbRCjkXkybMN4I8QR9aB76VtXFyj3ifHX61sTGMTqiN/lt9KpJteDrgk+L/BHLhRYbzx7uQpDYmutBhxILiFiOaBiPXdU/Y/RxsQSIUvly5szAAZr2vfU7juvurllnS7OqOkf6tyo17F6PnEXCBdMuYsbAZjYHna/1FT8P0WXKHYgC3aQ2VgdCq3OlyCT3BG0NdLYHRyWVHAl6sJIykAXJYWvrppcD0rV0S2KmKeRpwzBLaFiCXJN8x3ndzrleTluzpltinVcfI4208DhY4uyytLoGBY2X2gSmUAMcwGh0A141I2XiAW/BwjybgCikAfw76663V9Trr41ZOjWz4QuP/DQ9XNMqFlDFVUGwBPhWUm2ZMLsnDSR5S2SFe2CRZlJJsCNdK0WT9q5PM1Euyqw4PEwQLN1SqqOyh2IYgs7hhlJte7MpNt1hwBHXwOxGth+txORJoiyhQFyqsceVSTb3So/y8b11ujeHOI2Y6tqZDOf8/WMwIH9QFczpUtodnLyiGnI5IRVlK5bVw+f4PKyp1vfKpfyTtp9HsHEFjzO00hUIWYnewDNYWGgvvrs4NcMsxwaQKAsYZiQCDfSxvqTYjWuf0gH/X4MeP1P6VIwn/qM55RIPpWbtx5fi/yTHapuku6/FmvD54MJE0AOUSZpcoDMY87ZwAd5sAKpvSDaInmeYLlDAAAm57Iy3PfVl6O4nEwtErgGKeRsgOrD3s4tuXUHXvqu9MAq4mcLuzDdzKqT8ya1x44yk4y5+ZhlzThGMoOuaorsTklz3gegufqK1TGss/CtUgrTHi2Kj6OObdjRHkNVBzck1asSSAfCqnXJqnykcr7FKUrkAr6l0PVpNjyIoJyvOrWO4PCdSLc2Hr4ivltfYPsVfNhcTH/3B/5x5f8AbUoFb+zgYwzu2EZQ6wl2jf2JlDqvVNwB7dweHnWrp44bFlwuTMo7NgMpF7puHsk21HC3Cw1dAiv3gq5dEaFw8kZytFkKSCa/JWjW+/TgRUv7R1ZcWFdld+rRndBZXLovbA4Xyk6aa1ouwV1fY/fOvIt9ex+yfOsA1q2KnRhFS4oweJ9L1zYcSOIqXHiBXdgnHycueOT9p0VwF9zjzB/K9enZ0nBlPn+tRUxJ5mt648jjXX6WcDnqo9M9+4zD3L+BB/OrX0F2Kk0/4yXVELZWGhNwoBHEdq9u6qwmOJ0vV2+zia87/wDwt8pI9a4tbJRjSPV/p+XPJS+IvBbsHtoNiXwojyiNb5r7yMoICgaDtc+FQejqKuNxoW2W8RFt2uZja3eTVb23hJJcbMkSlmJuQDbs2W9+7dXY6DYVopsRG4syrFcDW18x4dxry64PanhjDE2n2lwTOisoVcQTuGIf5kD86l7LwggeQW/jTyMP6Qlx87+tcbAk/dcdbeJJbePCuo2ND4rCge9BLIf8wAH+6hhli3J/94IHR/8Ah7RP/fxP+lqRbSiw2zcLJLF1oyQgLZfaMZIPaGmgOvfXmyJFWLaBZgt5sSNSBc5DoL7z3VEj6R7OTC4eKf8AGMccRMapns6pbXMQtxcjU1rFNv6mOWF2buheIkbBxkMi2lkLvJcKzu79hVuM3tg79DYam9onTVZTJhjIqqMzKApuDZo+0DYb72y8MvGqtidvxvh4MP1ekTs5udGLFjYgEG3a51ltLpE2IyiWTRT2FVQoU/y5dTuG8mulQanur3OKen+JHZuS6Lh0sxyQ4/Du5sqi58CzC9q27Q6RYGIySwuJJpVA7JOXQWBJIsOdU9Oj803bMc2vvS5h85NTUTFbAtcGQAj96nSn+N0nfBeOhnGTbaafPZZsF0ulSFYwkeZVssjNew3DsW3276qeLw0jOXMoYsSTfTU76jYjZJzDLIjDS/bUH00ocBJ8JPhr9K0xwdtrg1cNLJbJK2vmaZFIPA+BrHN3GtjQEbwR43H1rDLbjXQmiyxyivT0RNoMOrbwNVCrXtnFfhMpIN/C/rVUrzdY05qjO35FKUrkAr6n9hknaxS8xCR5GQH6ivllfRvsTny4qZfiiHyYfrQHN6OlEx7xSSdUkjTwF9OyHLKDrpvAHnW37Qooxi88SZI5Yw6KLWsJJIgy20ysIgw7mrmdKIQuMxK2/wDek+bE/nULEYt3CB2LCNBGl/djDMwUd13b1rZA9i9k+dYVlCdD++BrCtH0Qeg1timsfZrTUuOMAAixdtwGthxJtu8P2Zi2nwKs6OAj6xgtjc6AaXJ4CsnjsbbvO/zFTdlbKmyjLIqsSDYsFI15Dj41Px2x44yrBSHub6WUEcQOVdKztcG0dNuRwZ3yCx38fDl41dPsrxI+9EMQC0LgDvzI1h32U+lUXa0ocE8UIud97nTw3X86ibNxnVPn7VwDlymxDEaG9+BrDI9ze4heh7UfoBdlLFiZMW8gCspFjoBfLclj/Tu76ruzOlOHTFYqZi2WTIECqSSEuNeC3AB1518rn25PJ7bu7G9yzO1jvstydL1vwIlktdlXxv8AQfnWOxV7mqyqqlz4LcemASOeJYxaeRzmZvZDfyjeflXFfpFOGRs5RkjESldDkubLcd7H1qfsno1DZpJnYhVZiF00UXI146d1dyDFYfD5gMHBHJFDFKGkZZpBnxKxkAnUDq2BBAGrd1aOUYeCHnd8HAi2ViZmvHE8hILXAv2jqQXOl7neTWWG6Gy5v+qnhw5JUZM3WyDNcrdY7gXAJve3GrJjzjcRFDpOWySiQANHGSsxUiRbiO+QCysd1++pGMwOGaQzHEICJY2URkPZUw6xdWViOUdsare1has3mk1SKSyuTOBgtk7OBLJ1+LKJmYMywIq6i5W2Ym+XS50I04VLj2rOigYXDRQu8YdDHES1pImyFmNzbrGj7Wl8pO415jlw2FTPFhjMdM5lkK3suXMYk0fS286WBqv7R6aYhhlSYRRZVCrABFZAoAW69qwta17WqFvl2zGTrllvKvHKs2KOQmPUyupIdoYSwVWYsoziUdkc/Os7d29CzFIu2xB4FVGnNra/8VTcXtdSSSSxO8kkn1rmTbRN7qMv731aMlBdlqVliwuKDK2aw4VpfaUYFyRValxLMSSd++tV6tHUyj0JtSO/P0hO5cx8SbVzJ9qSt71vCodKylmnLtlUqDNffXlKVkSKUpQCrb9mOPSLGrnbKHUoCd2YkZQTwvaqlXooC19ORl2jiVPFwf7kVvzrjVHx2PkmcySNdyEBPMIgQE99lFbIZL1pFglYbj5Vgazw+/8AfOsTW3gg8Aru4bq0VXBGdVIA4jN7zHnv04VwhUyJ9W5Nrf8Am4D6jzq0S0XR9H6GywInWyWLDnqLm3ay8TvHnTpXteGzG17hrXBBPeQdRqQNaqWy8eEiLBiJBuA0OrZQL+FybcxXKxkxa/WE8PqOFQ482dHxKRCkkuPEgnyvb/VWuvXNzXlVbOYkQV2MJIq2LEAd9V/Oeda3kG8mrb6K0X6LpdhYlKlXluCCEFhYixBZiOHK9QJenDKuXDYaGI3v1kgOIlvYLmzSaA2AG41SmxQ4VpfEE1jKSbslKjvbW2/isR/HxEkg5FrL4ZVstu61QI9ryRgBJHUDcAxAHlXLJryqbvYk6c23sS2+Vz4m9c9pCd5rClQ22D2vKUqAKUpQClKUApSlAKUpQClKUB7WxGrVXoNSgdTCSXrNt9Q8C3a8qmSbzW8XaIMayjlKm4rWWrU+IUd9NyQOg20HvcBQbW0H5HS9Rnck3Jue+oLYo8K1NITxqryFrJzzqK0PiuQqLSqObZBtedjWsmvKVQClKUApSlAKUpQClKUApSlAKUpQClKUApSlAKUpQClKUBshkym9bJcUSdNKj0qbYPWa9eUpUAUpSgFKUoBSlKAUpSgFKUoBSlKAUpSgFKUoBSlKAUpSgFKUoBSlKAUpSgFKUoBSlKAUpSgFKUoBSlKAUpSgFKUoBSlKAUpSgFKUoBSlKAUpSgFKUoBSlKAUpSgFKUoBSlKAUpSgFKUoBSlKAUpSgFKUoBSlKAUpSgFKUoBSlKAUpSgFKUoD/9k=" alt="Caja Cimientos">
-                <div>
-                    <h2>Caja de Principiantes: Cimientos</h2>
-                    <span class="badge">Cartas + tokens</span>
-                </div>
-            </div>
-
-            <h3>Cartas Destacadas Obtenidas:</h3>
-            <div class="carta-item">
-    <p>Llanura (7)</p> <div class="tooltip-pokedex">
-        <img src="fotos/princ_cimientos/llanura1_cimientos.png" alt="Foto de la carta">
-        <strong>Tipo:</strong> Llanura (7)<br>
-        <strong>Poder:</strong> Na<br>
-        <hr>
-        <small>Llanura basica.</small>
-    </div>
-            </div>
-                <div class="carta-item">
-                    <p class="raridad-rara">Dragón de Cimientos</p>
-                    <small>Rara Mítica</small>
-                </div>
-                <div class="carta-item">
-                    <p>Crecimiento Gigante</p>
-                    <small>Infrecuente</small>
-                </div>
-                </div>
-        </div>
-
-    </div>
-
-    <footer style="text-align: center; padding: 40px; color: #666;">
-        <p>Añadiendo cartas a la colección paso a paso...</p>
-    </footer>
-<script>
-    // Seleccionamos el input del buscador
-    const buscador = document.getElementById('buscador');
+<div class="container">
     
-    // Escuchamos lo que el usuario escribe
+    <input type="text" id="buscador" placeholder="Buscar carta en toda la caja...">
+
+    <div class="grupo-titulo">Grupo 1: [Nombre del Mazo]</div>
+    <div class="lista-cartas">
+        
+        <div class="carta-item">
+            <p>Llanura (7)</p> 
+            <div class="tooltip-pokedex">
+                <img src="fotos/princ_cimientos/llanura1_cimientos.png" alt="Foto">
+                <strong>Tipo:</strong> Tierra Básica<br>
+                <hr>
+                <small>Llanura de la caja de cimientos.</small>
+            </div>
+        </div>
+
+        <div class="carta-item">
+            <p class="raridad-rara">Dragón de Cimientos</p>
+            <div class="tooltip-pokedex">
+                <img src="fotos/princ_cimientos/dragon.jpg" alt="Foto">
+                <strong>Tipo:</strong> Criatura — Dragón<br>
+                <strong style="color: #f1c40f;">Rara Mítica</strong>
+                <hr>
+                <small>Vuela. Una fuerza imparable.</small>
+            </div>
+        </div>
+
+        </div>
+
+    <div class="grupo-titulo">Grupo 2: [Siguiente Mazo]</div>
+    <div class="lista-cartas">
+        <div class="carta-item">
+            <p>Crecimiento Gigante</p>
+            <div class="tooltip-pokedex">
+                <img src="fotos/princ_cimientos/crecimiento.jpg" alt="Foto">
+                <strong>Tipo:</strong> Instantáneo<br>
+                <small>Infrecuente</small>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<script>
+    const buscador = document.getElementById('buscador');
     buscador.addEventListener('keyup', (e) => {
         const textoBusqueda = e.target.value.toLowerCase();
-        // Seleccionamos todas las "fichas" de cartas
         const cartas = document.querySelectorAll('.carta-item');
 
         cartas.forEach(carta => {
-            // Buscamos el texto dentro del párrafo <p> de la carta
             const nombreCarta = carta.querySelector('p').textContent.toLowerCase();
-            
-            // Si el nombre incluye lo que escribimos, se muestra; si no, se oculta
             if (nombreCarta.includes(textoBusqueda)) {
-                carta.style.display = 'block';
+                carta.style.display = 'flex'; // Usamos flex para mantener el centrado
             } else {
                 carta.style.display = 'none';
             }
         });
     });
 </script>
+
 </body>
 </html>
