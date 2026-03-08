@@ -39,6 +39,44 @@
         }
         .carta-item:hover { transform: scale(1.05); background: #333; border: 1px solid #1abc9c; }
         .raridad-rara { color: #f1c40f; font-weight: bold; } /* Dorado para raras */
+/* Estilo del contenedor de la carta */
+.carta-item {
+    position: relative; /* Necesario para posicionar cosas dentro */
+    cursor: help;
+}
+
+/* El cuadro que aparecerá al pasar el ratón */
+.tooltip-pokedex {
+    visibility: hidden;
+    width: 250px;
+    background-color: #2c3e50;
+    color: #fff;
+    text-align: center;
+    border-radius: 10px;
+    padding: 10px;
+    position: absolute;
+    z-index: 100;
+    bottom: 125%; /* Aparece arriba de la carta */
+    left: 50%;
+    margin-left: -125px;
+    opacity: 0;
+    transition: opacity 0.3s;
+    border: 2px solid #1abc9c;
+    box-shadow: 0px 10px 20px rgba(0,0,0,0.5);
+}
+
+/* Mostrar el cuadro al pasar el ratón */
+.carta-item:hover .tooltip-pokedex {
+    visibility: visible;
+    opacity: 1;
+}
+
+/* Imagen dentro del cuadro */
+.tooltip-pokedex img {
+    width: 100%;
+    border-radius: 5px;
+    margin-bottom: 10px;
+}
     </style>
 </head>
 <body>
@@ -63,11 +101,15 @@
             </div>
 
             <h3>Cartas Destacadas Obtenidas:</h3>
-            <div class="lista-cartas">
-                <div class="carta-item">
-                    <p>Llanura (7)</p>
-                    <small>Común</small>
-                </div>
+            <div class="carta-item">
+    <p>Dragón de Cimientos</p> <div class="tooltip-pokedex">
+        <img src="https://tu-imagen-aqui.jpg" alt="Foto de la carta">
+        <strong>Tipo:</strong> Criatura - Dragón<br>
+        <strong>Poder:</strong> 5/5<br>
+        <hr>
+        <small>Una criatura legendaria que domina los cielos de Cimientos.</small>
+    </div>
+            </div>
                 <div class="carta-item">
                     <p class="raridad-rara">Dragón de Cimientos</p>
                     <small>Rara Mítica</small>
