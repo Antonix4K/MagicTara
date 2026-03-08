@@ -109,6 +109,17 @@
             .main-layout { flex-direction: column; }
             .visor-lateral { width: 100%; position: relative; top: 0; min-height: auto; }
         }
+
+        .contador-container {
+    background: rgba(26, 188, 156, 0.1);
+    border: 1px solid #1abc9c;
+    padding: 10px 20px;
+    border-radius: 50px;
+    display: inline-block;
+    margin-bottom: 20px;
+}
+.contador-label { color: #ccc; font-size: 14px; margin-right: 10px; }
+.contador-valor { color: #1abc9c; font-weight: bold; font-size: 20px; }
     </style>
 </head>
 <body>
@@ -117,7 +128,10 @@
     <a href="productos.html" class="nav-back">← Volver a Colecciones</a>
     <h1>Caja de Principiantes: Cimientos</h1>
 </header>
-
+<div class="contador-container">
+    <span class="contador-label">Cartas en esta caja:</span>
+    <span id="numero-cartas" class="contador-valor">0</span>
+</div>
 <div class="container">
     
     <div class="main-layout">
@@ -196,6 +210,15 @@
             }
         });
     });
+
+    // Función para contar cartas automáticamente
+function actualizarContador() {
+    const total = document.querySelectorAll('.carta-item').length;
+    document.getElementById('numero-cartas').innerText = total;
+}
+
+// Ejecutar al cargar la página
+window.onload = actualizarContador;
 </script>
 
 </body>

@@ -100,6 +100,43 @@
             max-width: 600px;
         }
 
+        /* --- NUEVA SECCIÓN: ESTADÍSTICAS --- */
+        .stats-container {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: -50px; /* Sube las tarjetas sobre el Hero */
+            position: relative;
+            z-index: 10;
+            padding: 0 20px;
+            flex-wrap: wrap;
+        }
+
+        .stat-card {
+            background: #1e293b;
+            border: 1px solid var(--primary);
+            padding: 20px;
+            border-radius: 15px;
+            min-width: 200px;
+            text-align: center;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+        }
+
+        .stat-card h4 {
+            margin: 0;
+            font-family: 'Cinzel', serif;
+            color: var(--primary);
+            font-size: 0.9rem;
+            text-transform: uppercase;
+        }
+
+        .stat-card p {
+            font-size: 2.5rem;
+            font-weight: bold;
+            margin: 10px 0;
+            color: white;
+        }
+
         /* Contenedores y Tarjetas */
         .container {
             max-width: 1200px;
@@ -193,6 +230,20 @@
         <p>Tu santuario para cartas Magic, estrategias de combate y piezas de colección legendarias.</p>
     </div>
 
+    <div class="stats-container">
+        <div class="stat-card">
+            <h4>Total Colección</h4>
+            <p>1.500</p>
+        </div>
+        <div class="stat-card">
+            <h4>Registradas</h4>
+            <p>42</p> </div>
+        <div class="stat-card">
+            <h4>Cajas</h4>
+            <p>1</p>
+        </div>
+    </div>
+
     <div class="container">
         <h2 class="section-title">Nuestra Colección</h2>
         
@@ -232,7 +283,7 @@
     </div>
 
     <footer>
-        <p>&copy; 2024 El Santuario de Magic - Hecha por Toni y Amara con pasión</p>
+        <p>&copy; La colección de Magic de Magic - Hecha por Amara y Toni</p>
     </footer>
 
 </body>
