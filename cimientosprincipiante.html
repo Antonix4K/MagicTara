@@ -9,9 +9,50 @@
         header { background: #1f1f1f; padding: 20px; text-align: center; border-bottom: 3px solid #1abc9c; }
         .nav-back { padding: 10px; color: #1abc9c; text-decoration: none; font-weight: bold; display: inline-block; }
         
-        .container { width: 90%; max-width: 1100px; margin: auto; padding: 20px; }
-        
-        /* Títulos de los grupos de 20 cartas */
+        .container { width: 95%; max-width: 1400px; margin: auto; padding: 20px; }
+
+        /* DISEÑO DE DOS COLUMNAS */
+        .main-layout {
+            display: flex;
+            gap: 30px;
+            align-items: flex-start;
+        }
+
+        /* Columna de las cartas (Izquierda) */
+        .col-cartas {
+            flex: 1;
+        }
+
+        /* Panel del Visor (Derecha) */
+        .visor-lateral {
+            width: 320px;
+            position: sticky;
+            top: 20px;
+            background: #1e1e1e;
+            border: 2px solid #1abc9c;
+            border-radius: 15px;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0px 10px 30px rgba(0,0,0,0.5);
+            min-height: 500px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .visor-lateral img {
+            width: 100%;
+            border-radius: 10px;
+            margin-bottom: 15px;
+            display: none; /* Se activa con JS */
+        }
+
+        .instrucciones-visor {
+            color: #666;
+            font-style: italic;
+        }
+
+        /* Estilos de las cartas */
         .grupo-titulo {
             background: #1abc9c;
             color: #121212;
@@ -29,7 +70,6 @@
             margin-top: 20px;
         }
 
-        /* La carta cuadrada */
         .carta-item {
             background: #2a2a2a;
             border-radius: 8px;
@@ -40,8 +80,7 @@
             justify-content: center;
             text-align: center;
             padding: 10px;
-            position: relative;
-            cursor: help;
+            cursor: pointer;
             transition: all 0.3s;
         }
 
@@ -50,43 +89,6 @@
             background: #333;
             transform: translateY(-5px);
         }
-
-        /* Tooltip (Cajita flotante) */
-        .tooltip-pokedex {
-    visibility: hidden;
-    width: 250px; /* Un pelín más ancho ayuda a la proporción */
-    background-color: #1f1f1f;
-    color: white;
-    text-align: center;
-    border-radius: 10px;
-    padding: 15px;
-    position: absolute;
-    z-index: 100;
-    
-    /* CAMBIA ESTO: En lugar de bottom: 110%, usa esto para que no se corte */
-    bottom: 50%; 
-    left: 110%; /* Esto hace que salga a la derecha de la carta en lugar de arriba */
-    
-    transform: translateY(50%); /* Lo centra verticalmente respecto al cuadro */
-    opacity: 0;
-    transition: opacity 0.3s;
-    border: 2px solid #1abc9c;
-    box-shadow: 0px 10px 30px rgba(0,0,0,0.8);
-    pointer-events: none;
-}
-
-        .carta-item:hover .tooltip-pokedex {
-            visibility: visible;
-            opacity: 1;
-        }
-
-        .tooltip-pokedex img {
-            width: 100%;
-            border-radius: 5px;
-            margin-bottom: 10px;
-        }
-
-        .raridad-rara { color: #f1c40f; }
 
         #buscador {
             width: 100%; 
@@ -97,6 +99,15 @@
             color: white; 
             font-size: 16px;
             margin-bottom: 20px;
+            box-sizing: border-box;
+        }
+
+        .raridad-rara { color: #f1c40f; }
+
+        /* Responsive para móviles */
+        @media (max-width: 900px) {
+            .main-layout { flex-direction: column; }
+            .visor-lateral { width: 100%; position: relative; top: 0; min-height: auto; }
         }
     </style>
 </head>
@@ -109,122 +120,68 @@
 
 <div class="container">
     
-    <input type="text" id="buscador" placeholder="Buscar carta en toda la caja...">
-
-    <div class="grupo-titulo">Mazo de felinos</div>
-    <div class="lista-cartas">
+    <div class="main-layout">
         
-        <div class="carta-item">
-            <p>Llanura (7)</p> 
-            <div class="tooltip-pokedex">
-                <img src="fotos/princ_cimientos/llanura1_cimientos.png" alt="Foto">
-                <strong>Tipo:</strong> Tierra Básica<br>
-                <hr>
-                <small>Llanura básica, añade uno de mana blanco.</small>
+        <div class="col-cartas">
+            <input type="text" id="buscador" placeholder="Buscar carta en toda la caja...">
+
+            <div class="grupo-titulo">Mazo de felinos</div>
+            <div class="lista-cartas">
+                
+                <div class="carta-item" onmouseover="mostrarCarta('fotos/princ_cimientos/llanura1_cimientos.png', 'Llanura (7)', 'Tierra Básica', 'Llanura básica, añade uno de mana blanco.')">
+                    <p>Llanura (7)</p> 
+                </div>
+
+                <div class="carta-item" onmouseover="mostrarCarta('fotos/princ_cimientos/castigo_de_elspeth.png', 'Castigo de Elspeth', 'Instantáneo', 'Hace tres puntos de daño a la criatura atacante o defensora objetivo. Si fuera a morir, exíliala.')">
+                    <p>Castigo de Elspeth</p>
+                </div>
+
+                <div class="carta-item" onmouseover="mostrarCarta('fotos/princ_cimientos/cazacielos_leonina.png', 'Cazacielos leonina', 'Criatura - Caballero felino', 'Poder: 2/2. Vuela.')">
+                    <p>Cazacielos leonina</p>
+                </div>
+
+                <div class="carta-item" onmouseover="mostrarCarta('fotos/princ_cimientos/castigo_de_elspeth.png', 'Castigo de Elspeth', 'Instantáneo', 'Efecto de exilio.')"><p>Castigo de Elspeth</p></div>
+                <div class="carta-item" onmouseover="mostrarCarta('fotos/princ_cimientos/castigo_de_elspeth.png', 'Castigo de Elspeth', 'Instantáneo', 'Efecto de exilio.')"><p>Castigo de Elspeth</p></div>
+                <div class="carta-item" onmouseover="mostrarCarta('fotos/princ_cimientos/castigo_de_elspeth.png', 'Castigo de Elspeth', 'Instantáneo', 'Efecto de exilio.')"><p>Castigo de Elspeth</p></div>
+
+            </div>
+
+            <div class="grupo-titulo">Grupo 2: Bosque</div>
+            <div class="lista-cartas">
+                <div class="carta-item" onmouseover="mostrarCarta('fotos/princ_cimientos/crecimiento.jpg', 'Crecimiento Gigante', 'Instantáneo', 'La criatura objetivo obtiene +3/+3 hasta el final del turno.')">
+                    <p>Crecimiento Gigante</p>
+                </div>
             </div>
         </div>
 
-        <div class="carta-item">
-            <p>Castigo de Elspeth</p>
-            <div class="tooltip-pokedex">
-                <img src="fotos/princ_cimientos/castigo_de_elspeth.png" alt="Foto">
-                <strong>Tipo:</strong> Instantáneo<br>
-                <strong>Maná:</strong> 1 blanco.<br>
-                <strong style="color: #c0c0c0;">Infrecuente</strong>
-                <hr>
-                <small>Hace tres puntos de daño a la criatura atacante o defensora objetivo. Si fuera a morir, exíliala.</small>
-            </div>
-        </div>
-        <div class="carta-item">
-            <p>Cazacielos leonina</p>
-            <div class="tooltip-pokedex">
-                <img src="fotos/princ_cimientos/cazacielos_leonina.png" alt="Foto">
-                <strong>Tipo:</strong> Criatura - Caballero felino<br>
-                <strong>Maná:</strong> 2 blancos.<br>
-                <strong>Poder:</strong> 2/2<br>
-                <strong style="color: #c0c0c0;">Infrecuente</strong>
-                <hr>
-                <small>Vuela.</small>
-            </div>
-        </div>
-        <div class="carta-item">
-            <p>Castigo de Elspeth</p>
-            <div class="tooltip-pokedex">
-                <img src="fotos/princ_cimientos/castigo_de_elspeth.png" alt="Foto">
-                <strong>Tipo:</strong> Instantáneo<br>
-                <strong style="color: #c0c0c0;">Infrecuente</strong>
-                <hr>
-                <small>Hace tres puntos de daño a la criatura atacante o defensora objetivo. Si fuera a morir, exíliala.</small>
-            </div>
-        </div>
-        <div class="carta-item">
-            <p>Castigo de Elspeth</p>
-            <div class="tooltip-pokedex">
-                <img src="fotos/princ_cimientos/castigo_de_elspeth.png" alt="Foto">
-                <strong>Tipo:</strong> Instantáneo<br>
-                <strong style="color: #c0c0c0;">Infrecuente</strong>
-                <hr>
-                <small>Hace tres puntos de daño a la criatura atacante o defensora objetivo. Si fuera a morir, exíliala.</small>
-            </div>
-        </div>
-        <div class="carta-item">
-            <p>Castigo de Elspeth</p>
-            <div class="tooltip-pokedex">
-                <img src="fotos/princ_cimientos/castigo_de_elspeth.png" alt="Foto">
-                <strong>Tipo:</strong> Instantáneo<br>
-                <strong style="color: #c0c0c0;">Infrecuente</strong>
-                <hr>
-                <small>Hace tres puntos de daño a la criatura atacante o defensora objetivo. Si fuera a morir, exíliala.</small>
-            </div>
-        </div>
-        <div class="carta-item">
-            <p>Castigo de Elspeth</p>
-            <div class="tooltip-pokedex">
-                <img src="fotos/princ_cimientos/castigo_de_elspeth.png" alt="Foto">
-                <strong>Tipo:</strong> Instantáneo<br>
-                <strong style="color: #c0c0c0;">Infrecuente</strong>
-                <hr>
-                <small>Hace tres puntos de daño a la criatura atacante o defensora objetivo. Si fuera a morir, exíliala.</small>
-            </div>
-        </div>
-        <div class="carta-item">
-            <p>Castigo de Elspeth</p>
-            <div class="tooltip-pokedex">
-                <img src="fotos/princ_cimientos/castigo_de_elspeth.png" alt="Foto">
-                <strong>Tipo:</strong> Instantáneo<br>
-                <strong style="color: #c0c0c0;">Infrecuente</strong>
-                <hr>
-                <small>Hace tres puntos de daño a la criatura atacante o defensora objetivo. Si fuera a morir, exíliala.</small>
-            </div>
-        </div>
-        <div class="carta-item">
-            <p>Castigo de Elspeth</p>
-            <div class="tooltip-pokedex">
-                <img src="fotos/princ_cimientos/castigo_de_elspeth.png" alt="Foto">
-                <strong>Tipo:</strong> Instantáneo<br>
-                <strong style="color: #c0c0c0;">Infrecuente</strong>
-                <hr>
-                <small>Hace tres puntos de daño a la criatura atacante o defensora objetivo. Si fuera a morir, exíliala.</small>
-            </div>
+        <div class="visor-lateral" id="visor">
+            <div id="instrucciones" class="instrucciones-visor">Pasa el ratón sobre una carta para ver los detalles</div>
+            <img id="img-visor" src="" alt="Carta seleccionada">
+            <h2 id="titulo-visor" style="color: #1abc9c; margin-bottom: 5px;"></h2>
+            <p id="tipo-visor" style="font-weight: bold; color: #ccc; margin-top: 0;"></p>
+            <hr id="separador-visor" style="border: 0; border-top: 1px solid #444; width: 80%; display:none;">
+            <p id="desc-visor" style="font-size: 14px; padding: 0 10px;"></p>
         </div>
 
-        </div>
-
-    <div class="grupo-titulo">Grupo 2: [Siguiente Mazo]</div>
-    <div class="lista-cartas">
-        <div class="carta-item">
-            <p>Crecimiento Gigante</p>
-            <div class="tooltip-pokedex">
-                <img src="fotos/princ_cimientos/crecimiento.jpg" alt="Foto">
-                <strong>Tipo:</strong> Instantáneo<br>
-                <small>Infrecuente</small>
-            </div>
-        </div>
     </div>
-
 </div>
 
 <script>
+    // FUNCIÓN PARA EL VISOR
+    function mostrarCarta(img, titulo, tipo, desc) {
+        document.getElementById('instrucciones').style.display = 'none';
+        
+        const imagen = document.getElementById('img-visor');
+        imagen.src = img;
+        imagen.style.display = 'block';
+        
+        document.getElementById('titulo-visor').innerText = titulo;
+        document.getElementById('tipo-visor').innerText = tipo;
+        document.getElementById('desc-visor').innerText = desc;
+        document.getElementById('separador-visor').style.display = 'block';
+    }
+
+    // BUSCADOR
     const buscador = document.getElementById('buscador');
     buscador.addEventListener('keyup', (e) => {
         const textoBusqueda = e.target.value.toLowerCase();
@@ -233,7 +190,7 @@
         cartas.forEach(carta => {
             const nombreCarta = carta.querySelector('p').textContent.toLowerCase();
             if (nombreCarta.includes(textoBusqueda)) {
-                carta.style.display = 'flex'; // Usamos flex para mantener el centrado
+                carta.style.display = 'flex';
             } else {
                 carta.style.display = 'none';
             }
