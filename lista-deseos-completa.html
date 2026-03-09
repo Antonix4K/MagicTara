@@ -43,6 +43,7 @@
             background: #1e293b; border: 1px dashed #475569; border-radius: 8px;
             aspect-ratio: 1/1; display: flex; align-items: center; justify-content: center;
             text-align: center; cursor: pointer; transition: 0.3s; padding: 10px;
+            position: relative; /* Importante para el checkbox */
         }
         .carta-item:hover { border-style: solid; border-color: #1abc9c; transform: translateY(-3px); }
 
@@ -54,6 +55,25 @@
         }
         #imagen-visor { width: 100%; border-radius: 10px; display: none; margin-bottom: 15px; }
         #desc-visor { text-align: left; font-size: 14px; color: #cbd5e1; line-height: 1.5; }
+
+        /* CHECKBOX CUSTOM */
+        .check-container { position: absolute; top: 8px; right: 8px; z-index: 10; }
+        .check-carta { display: none; }
+        .check-carta + label {
+            width: 22px; height: 22px; border: 2px solid #1abc9c; border-radius: 4px;
+            display: inline-block; cursor: pointer; transition: 0.3s; background: rgba(0,0,0,0.3);
+        }
+        .check-carta:checked + label {
+            background: #1abc9c;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='black'%3E%3Cpath d='M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z'/%3E%3C/svg%3E");
+            background-size: cover;
+        }
+        
+        /* Efecto de carta conseguida */
+        .carta-item:has(.check-carta:checked) {
+            border-style: solid; border-color: #2ecc71; opacity: 0.5;
+        }
+        .carta-item:has(.check-carta:checked):hover { opacity: 0.9; }
 
         @media (max-width: 900px) {
             .main-layout { flex-direction: column; }
@@ -75,7 +95,7 @@
             <div class="filtros-group">
                 <span class="filter-label">Filtrar por Tipo:</span>
                 <div class="btn-container">
-                    <button class="btn-f" onclick="filtrar('tipo', 'todas')">Todas</button>
+                    <button class="btn-f active" onclick="filtrar('tipo', 'todas')">Todas</button>
                     <button class="btn-f" onclick="filtrar('tipo', 'Criatura')">Criaturas</button>
                     <button class="btn-f" onclick="filtrar('tipo', 'Tierra')">Tierras</button>
                     <button class="btn-f" onclick="filtrar('tipo', 'Hechizo')">Hechizos</button>
@@ -85,12 +105,12 @@
 
                 <span class="filter-label">Filtrar por Color:</span>
                 <div class="btn-container">
-                    <button class="btn-f" onclick="filtrar('color', 'todas')">Todos</button>
+                    <button class="btn-f active" onclick="filtrar('color', 'todas')">Todos</button>
                     <button class="btn-f" style="color:#fff;" onclick="filtrar('color', 'Blanco')">Blanco</button>
                     <button class="btn-f" style="color:#3b82f6;" onclick="filtrar('color', 'Azul')">Azul</button>
                     <button class="btn-f" style="color:#ef4444;" onclick="filtrar('color', 'Rojo')">Rojo</button>
                     <button class="btn-f" style="color:#22c55e;" onclick="filtrar('color', 'Verde')">Verde</button>
-                    <button class="btn-f" style="color:#3e2142;" onclick="filtrar('color', 'Negro')">Negro</button>
+                    <button class="btn-f" style="color:#b388eb;" onclick="filtrar('color', 'Negro')">Negro</button>
                     <button class="btn-f" style="color:#aaa;" onclick="filtrar('color', 'Incoloro')">Incoloro</button>
                 </div>
             </div>
@@ -98,21 +118,33 @@
             <div class="lista-cartas" id="grid-deseos">
                 
                 <div class="carta-item" data-tipo="Criatura" data-color="Verde" 
-                     onmouseover="mostrar('https://gatherer-static.wizards.com/Cards/medium/EBF3670D7B3EDFCD298AE3D88B827EEEB90D7CC56427445674B1ED962FD4123D.webp', 'Edu Espinoso, sembrador de púas', 'CriaturaLlegendaria - Druida Planta','Poder: 2/2. Añade contadores mediante tierras y los duplica.')">
-                    <p>Edu Espinso, sembrador de púas</p>
+                     onmouseover="mostrar('https://gatherer-static.wizards.com/Cards/medium/EBF3670D7B3EDFCD298AE3D88B827EEEB90D7CC56427445674B1ED962FD4123D.webp', 'Edu Espinoso', 'Criatura Legendaria', 'Añade contadores mediante tierras.')">
+                    <div class="check-container" onclick="event.stopPropagation();">
+                        <input type="checkbox" class="check-carta" id="c1" onchange="guardarEstado()">
+                        <label for="c1"></label>
+                    </div>
+                    <p>Edu Espinoso</p>
                 </div>
 
                 <div class="carta-item" data-tipo="Encantamiento" data-color="Negro" 
-                     onmouseover="mostrar('https://www.cardtrader.com/uploads/blueprints/image/26576/show_megrim-eighth-edition.jpg', 'Jaqueca', 'Encantamiento', 'Quita vidas al descartar cartas.')">
+                     onmouseover="mostrar('https://www.cardtrader.com/uploads/blueprints/image/26576/show_megrim-eighth-edition.jpg', 'Jaqueca', 'Encantamiento', 'Quita vidas al descartar.')">
+                    <div class="check-container" onclick="event.stopPropagation();">
+                        <input type="checkbox" class="check-carta" id="c2" onchange="guardarEstado()">
+                        <label for="c2"></label>
+                    </div>
                     <p>Jaqueca</p>
                 </div>
 
                 <div class="carta-item" data-tipo="Artefacto" data-color="Incoloro" 
-                     onmouseover="mostrar('https://cards.scryfall.io/small/front/7/3/73bc4196-d54f-44cb-9797-11cb19b54308.jpg?1562819022', 'Urna dorada', 'Artefacto', 'Acumula vidas por turnos.')">
+                     onmouseover="mostrar('https://cards.scryfall.io/small/front/7/3/73bc4196-d54f-44cb-9797-11cb19b54308.jpg?1562819022', 'Urna dorada', 'Artefacto', 'Acumula vidas.')">
+                    <div class="check-container" onclick="event.stopPropagation();">
+                        <input type="checkbox" class="check-carta" id="c3" onchange="guardarEstado()">
+                        <label for="c3"></label>
+                    </div>
                     <p>Urna dorada</p>
                 </div>
 
-                </div>
+            </div>
         </div>
 
         <div class="visor-lateral">
@@ -127,6 +159,7 @@
 </div>
 
 <script>
+    // FUNCIÓN MOSTRAR EN VISOR
     function mostrar(img, tit, tipo, desc) {
         document.getElementById('ins').style.display = 'none';
         const imagen = document.getElementById('imagen-visor');
@@ -137,6 +170,7 @@
         document.getElementById('desc-visor').innerText = desc;
     }
 
+    // FUNCIÓN FILTRAR
     let filtroActual = { tipo: 'todas', color: 'todas' };
 
     function filtrar(categoria, valor) {
@@ -146,14 +180,42 @@
         cartas.forEach(c => {
             const tMatch = filtroActual.tipo === 'todas' || c.dataset.tipo === filtroActual.tipo;
             const cMatch = filtroActual.color === 'todas' || c.dataset.color === filtroActual.color;
-            
             c.style.display = (tMatch && cMatch) ? 'flex' : 'none';
         });
 
-        // Feedback visual en botones
-        event.target.parentElement.querySelectorAll('.btn-f').forEach(b => b.classList.remove('active'));
+        const btns = event.target.parentElement.querySelectorAll('.btn-f');
+        btns.forEach(b => b.classList.remove('active'));
         event.target.classList.add('active');
     }
+
+    // --- SISTEMA DE PERSISTENCIA (GUARDADO) ---
+
+    // Guarda el estado de todos los checkboxes en el almacenamiento del navegador
+    function guardarEstado() {
+        const checks = document.querySelectorAll('.check-carta');
+        let estados = {};
+        checks.forEach(check => {
+            estados[check.id] = check.checked;
+        });
+        localStorage.setItem('deseos_conseguidos', JSON.stringify(estados));
+    }
+
+    // Carga el estado al abrir la página
+    function cargarEstado() {
+        const estadosGuardados = localStorage.getItem('deseos_conseguidos');
+        if (estadosGuardados) {
+            const estados = JSON.parse(estadosGuardados);
+            for (let id in estados) {
+                const checkbox = document.getElementById(id);
+                if (checkbox) {
+                    checkbox.checked = estados[id];
+                }
+            }
+        }
+    }
+
+    // Ejecutar carga al iniciar
+    window.onload = cargarEstado;
 </script>
 </body>
 </html>
