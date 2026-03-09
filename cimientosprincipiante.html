@@ -144,7 +144,7 @@
             <div class="grupo-titulo">Mazo de felinos</div>
             <div class="lista-cartas">
                 
-                <div class="carta-item" onmouseover="mostrarCarta('https://media.wizards.com/2024/fdn/KJcVGY55Z3Bgi7/sp_f92a854ceb.png', 'Llanura (7)', 'Tierra Básica', 'Llanura básica, añade uno de mana blanco.')">
+                <div class="carta-item" data-cantidad="7" onmouseover="mostrarCarta('https://media.wizards.com/2024/fdn/KJcVGY55Z3Bgi7/sp_f92a854ceb.png', 'Llanura (7)', 'Tierra Básica', 'Llanura básica, añade uno de mana blanco.')">
                     <p>Llanura (7)</p> 
                 </div>
 
@@ -413,7 +413,7 @@
                 <div class="carta-item" onmouseover="mostrarCarta('https://media.wizards.com/2024/fdn/KJcVGY55Z3Bgi7/sp_08072e0df8.png', 'Salvador felidar', 'Criatura - Bestia felino', 'Poder 2/3. Vinculo Vital. Repartir +1/1.')"><p>Salvador felidar</p></div>
                 <div class="carta-item" onmouseover="mostrarCarta('https://media.wizards.com/2024/fdn/KJcVGY55Z3Bgi7/sp_1b2421a38c.png', 'Vanguardia leonina', 'Criatura - Soldado felino', 'Poder 1/1. Ganar vidas. +1/1 en turno.')"><p>Vanguardia leonina</p></div>                
             </div>
-            <div class="grupo-titulo">Mazo de felinos</div>
+            <div class="grupo-titulo">Tokens</div>
             <div class="lista-cartas">
                 
                 <div class="carta-item" onmouseover="mostrarCarta('https://media.wizards.com/2024/fdn/KJcVGY55Z3Bgi7/sp_f92a854ceb.png', 'Llanura (7)', 'Tierra Básica', 'Llanura básica, añade uno de mana blanco.')">
@@ -487,8 +487,18 @@
 
     // Función para contar cartas automáticamente
 function actualizarContador() {
-    const total = document.querySelectorAll('.carta-item').length;
-    document.getElementById('numero-cartas').innerText = total;
+    let granTotal = 0;
+    // Buscamos todas las cartas
+    const cartas = document.querySelectorAll('.carta-item');
+    
+    cartas.forEach(carta => {
+        // Leemos el número que pusimos en data-cantidad (si no hay, por defecto es 1)
+        let cantidad = parseInt(carta.getAttribute('data-cantidad')) || 1;
+        granTotal += cantidad;
+    });
+
+    // Ponemos el resultado en el número de arriba
+    document.getElementById('numero-cartas').innerText = granTotal;
 }
 
 // Ejecutar al cargar la página
