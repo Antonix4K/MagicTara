@@ -79,6 +79,8 @@
                     <button class="btn-f" onclick="filtrar('tipo', 'Criatura')">Criaturas</button>
                     <button class="btn-f" onclick="filtrar('tipo', 'Tierra')">Tierras</button>
                     <button class="btn-f" onclick="filtrar('tipo', 'Hechizo')">Hechizos</button>
+                    <button class="btn-f" onclick="filtrar('tipo', 'Artefacto')">Artefactos</button>
+                    <button class="btn-f" onclick="filtrar('tipo', 'Encantamiento')">Encantamiento</button>
                 </div>
 
                 <span class="filter-label">Filtrar por Color:</span>
@@ -88,20 +90,26 @@
                     <button class="btn-f" style="color:#3b82f6;" onclick="filtrar('color', 'Azul')">Azul</button>
                     <button class="btn-f" style="color:#ef4444;" onclick="filtrar('color', 'Rojo')">Rojo</button>
                     <button class="btn-f" style="color:#22c55e;" onclick="filtrar('color', 'Verde')">Verde</button>
+                    <button class="btn-f" style="color:#3e2142;" onclick="filtrar('color', 'Negro')">Negro</button>
                     <button class="btn-f" style="color:#aaa;" onclick="filtrar('color', 'Incoloro')">Incoloro</button>
                 </div>
             </div>
 
             <div class="lista-cartas" id="grid-deseos">
                 
-                <div class="carta-item" data-tipo="Criatura" data-color="Blanco" 
-                     onmouseover="mostrar('https://media.wizards.com/2024/fdn/KJcVGY55Z3Bgi7/sp_6199c7548a.png', 'Cazador servicial', 'Criatura - Felino', 'Al entrar, roba una carta. Es clave para el motor del mazo.')">
-                    <p>Cazador servicial</p>
+                <div class="carta-item" data-tipo="Criatura" data-color="Verde" 
+                     onmouseover="mostrar('https://gatherer-static.wizards.com/Cards/medium/EBF3670D7B3EDFCD298AE3D88B827EEEB90D7CC56427445674B1ED962FD4123D.webp', 'Edu Espinoso, sembrador de púas', 'CriaturaLlegendaria - Druida Planta','Poder: 2/2. Añade contadores mediante tierras y los duplica.')">
+                    <p>Edu Espinso, sembrador de púas</p>
                 </div>
 
-                <div class="carta-item" data-tipo="Hechizo" data-color="Blanco" 
-                     onmouseover="mostrar('https://media.wizards.com/2024/fdn/KJcVGY55Z3Bgi7/sp_52a3358c5c.png', 'Edicto angelical', 'Conjuro', 'Exilia la criatura o encantamiento objetivo.')">
-                    <p>Edicto angelical</p>
+                <div class="carta-item" data-tipo="Encantamiento" data-color="Negro" 
+                     onmouseover="mostrar('https://www.cardtrader.com/uploads/blueprints/image/26576/show_megrim-eighth-edition.jpg', 'Jaqueca', 'Encantamiento', 'Quita vidas al descartar cartas.')">
+                    <p>Jaqueca</p>
+                </div>
+
+                <div class="carta-item" data-tipo="Artefacto" data-color="Incoloro" 
+                     onmouseover="mostrar('https://cards.scryfall.io/small/front/7/3/73bc4196-d54f-44cb-9797-11cb19b54308.jpg?1562819022', 'Urna dorada', 'Artefacto', 'Acumula vidas por turnos.')">
+                    <p>Urna dorada</p>
                 </div>
 
                 </div>
