@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Santuario - Apertura de Sobres</title>
+    <style>
+        body { font-family: 'Segoe UI', sans-serif; margin: 0; background: #020617; color: white; overflow: hidden; height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+        .nav-back { position: absolute; top: 20px; left: 20px; color: #1abc9c; text-decoration: none; font-weight: bold; }
+        
+        /* EL SOBRE */
+        .pack-container { cursor: pointer; transition: 0.5s; position: relative; z-index: 5; }
+        .pack-container:hover { transform: scale(1.05) rotate(2deg); filter: drop-shadow(0 0 20px #1abc9c); }
+        .pack-img { width: 220px; border-radius: 10px; box-shadow: 0 10px 30px rgba(0,0,0,0.8); }
+
+        /* LA CARTA (Oculta al inicio) */
+        .card-reveal {
+            position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%) scale(0);
+            width: 300px; transition: all 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            z-index: 10; text-align: center;
+        }
+        .card-reveal img { width: 100%; border-radius: 15px; box-shadow: 0 0 50px rgba(26, 188, 156, 0.6); }
+        .card-reveal.active { transform: translate(-50%, -50%) scale(1); }
+
+        /* EFECTO DE LUZ */
+        .glow {
+            position: absolute; width: 100%; height: 100%; background: radial-gradient(circle, #1abc9c 0%, transparent 70%);
+            opacity: 0; transition: 0.5s; pointer-events: none;
+        }
+
+        .btn-reset { margin-top: 30px; background: #1abc9c; color: #020617; border: none; padding: 10px 20px; border-radius: 5px; font-weight: bold; cursor: pointer; display: none; }
+    </style>
+</head>
+<body>
+
+    <a href="index.html" class="nav-back">← Volver al Santuario</a>
+
+    <div id="pack" class="pack-container" onclick="abrirSobre()">
+        <div class="glow" id="glow"></div>
+        <img src="https://m.media-amazon.com/images/I/7178W9S-M9L._AC_SL1500_.jpg" class="pack-img" alt="Sobre de Magic">
+        <p style="text-align: center; margin-top: 15px; color: #1abc9c;">Haz clic para abrir</p>
+    </div>
+
+    <div id="reveal" class="card-reveal">
+        <img id="card-img" src="" alt="Carta Revelada">
+        <h2 id="card-name" style="margin-top: 20px; color: #f1c40f;"></h2>
+        <button class="btn-reset" onclick="location.reload()">Abrir otro sobre</button>
+    </div>
+
+    <script>
+        // Aquí conectamos con vuestra colección real
+        const coleccionParaSobres = [
+            { n: "Edu Espinoso", i: "https://gatherer-static.wizards.com/Cards/medium/EBF3670D7B3EDFCD298AE3D88B827EEEB90D7CC56427445674B1ED962FD4123D.webp" },
+            { n: "Jazal Melena Dorada", i: "https://media.wizards.com/2024/fdn/KJcVGY55Z3Bgi7/sp_7e7f4d8c8e.png" },
+            { n: "Jaqueca", i: "https://www.cardtrader.com/uploads/blueprints/image/26576/show_megrim-eighth-edition.jpg" },
+            { n: "Castigo de Elspeth", i: "https://media.wizards.com/2024/fdn/KJcVGY55Z3Bgi7/sp_e392057302.png" }
+        ];
+
+        function abrirSobre() {
+            const pack = document.getElementById('pack');
+            const reveal = document.getElementById('reveal');
+            const glow = document.getElementById('glow');
+            const btn = document.querySelector('.btn-reset');
+
+            // 1. Efecto de "explotar" el sobre
+            pack.style.transform = "scale(0)";
+            pack.style.opacity = "0";
+            glow.style.opacity = "1";
+
+            // 2. Elegir carta aleatoria
+            const randomCard = coleccionParaSobres[Math.floor(Math.random() * coleccionParaSobres.length)];
+            
+            // 3. Mostrar la carta con retraso
+            setTimeout(() => {
+                document.getElementById('card-img').src = randomCard.i;
+                document.getElementById('card-name').innerText = "¡Te ha salido: " + randomCard.n + "!";
+                reveal.classList.add('active');
+                btn.style.display = 'inline-block';
+            }, 500);
+        }
+    </script>
+</body>
+</html>
