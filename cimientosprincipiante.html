@@ -23,22 +23,59 @@
             flex: 1;
         }
 
-        /* Panel del Visor (Derecha) */
-        .visor-lateral {
-            width: 320px;
-            position: sticky;
-            top: 20px;
-            background: #1e1e1e;
-            border: 2px solid #1abc9c;
-            border-radius: 15px;
-            padding: 20px;
-            text-align: center;
-            box-shadow: 0px 10px 30px rgba(0,0,0,0.5);
-            min-height: 500px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-        }
+       /* Panel del Visor (Derecha) - CORREGIDO */
+.visor-lateral {
+    width: 320px;
+    position: sticky;
+    top: 20px;
+    background: #1e1e1e;
+    border: 2px solid #1abc9c;
+    border-radius: 15px;
+    padding: 20px;
+    text-align: center;
+    box-shadow: 0px 10px 30px rgba(0,0,0,0.5);
+    /* Cambios clave aquí: */
+    height: auto; 
+    max-height: 85vh; /* Evita que sea más alto que la pantalla */
+    overflow-y: auto; /* Permite scroll si el texto es muy largo */
+    display: block;   /* Quitamos flex-center para que el texto empiece arriba */
+}
+
+/* Estilo para la barra de scroll (solo Chrome/Edge/Safari) */
+.visor-lateral::-webkit-scrollbar {
+    width: 8px;
+}
+.visor-lateral::-webkit-scrollbar-track {
+    background: #121212;
+    border-radius: 10px;
+}
+.visor-lateral::-webkit-scrollbar-thumb {
+    background: #1abc9c;
+    border-radius: 10px;
+}
+
+/* Ajustes de los textos internos */
+#titulo-visor {
+    margin: 15px 0 5px 0;
+    font-size: 1.5rem;
+    color: white;
+    font-family: 'Segoe UI', sans-serif;
+}
+
+#tipo-visor {
+    margin-bottom: 15px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #333;
+    font-style: italic;
+}
+
+#desc-visor {
+    font-size: 14px;
+    line-height: 1.6;
+    color: #bbb;
+    text-align: left; /* Más fácil de leer descripciones largas */
+    padding: 0 5px;
+}
 
         .visor-lateral img {
             width: 100%;
@@ -443,13 +480,12 @@
         </div>
 
         <div class="visor-lateral" id="visor">
-            <div id="instrucciones" class="instrucciones-visor">Pasa el ratón sobre una carta para ver los detalles</div>
-            <img id="img-visor" src="" alt="Carta seleccionada">
-            <h2 id="titulo-visor" style="color: #1abc9c; margin-bottom: 5px;"></h2>
-            <p id="tipo-visor" style="font-weight: bold; color: #ccc; margin-top: 0;"></p>
-            <hr id="separador-visor" style="border: 0; border-top: 1px solid #444; width: 80%; display:none;">
-            <p id="desc-visor" style="font-size: 14px; padding: 0 10px;"></p>
-        </div>
+    <p id="instrucciones" class="instrucciones-visor">Pasa el ratón sobre una carta para verla aquí</p>
+    <img id="imagen-visor" src="" alt="Vista de la carta">
+    <h3 id="titulo-visor"></h3>
+    <p id="tipo-visor" style="color: #1abc9c; font-weight: bold;"></p>
+    <p id="desc-visor"></p>
+</div>
 
     </div>
 </div>
@@ -457,17 +493,17 @@
 <script>
     // FUNCIÓN PARA EL VISOR
     function mostrarCarta(img, titulo, tipo, desc) {
-        document.getElementById('instrucciones').style.display = 'none';
-        
-        const imagen = document.getElementById('img-visor');
-        imagen.src = img;
-        imagen.style.display = 'block';
-        
-        document.getElementById('titulo-visor').innerText = titulo;
-        document.getElementById('tipo-visor').innerText = tipo;
-        document.getElementById('desc-visor').innerText = desc;
-        document.getElementById('separador-visor').style.display = 'block';
-    }
+    // Oculta las instrucciones al pasar el ratón
+    document.getElementById('instrucciones').style.display = 'none';
+    
+    const imagen = document.getElementById('imagen-visor');
+    imagen.src = img;
+    imagen.style.display = 'block'; // Muestra la imagen
+    
+    document.getElementById('titulo-visor').innerText = titulo;
+    document.getElementById('tipo-visor').innerText = tipo;
+    document.getElementById('desc-visor').innerText = desc;
+}
 
     // BUSCADOR
     const buscador = document.getElementById('buscador');
