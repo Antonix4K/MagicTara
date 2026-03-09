@@ -338,12 +338,72 @@
     font-size: 50px;
     margin-bottom: 10px;
 }
+
+.search-box-master {
+    position: relative;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+#globalSearch {
+    width: 100%;
+    padding: 15px 25px;
+    border-radius: 30px;
+    border: 2px solid #1abc9c;
+    background: #1e293b;
+    color: white;
+    font-size: 16px;
+    outline: none;
+    transition: 0.3s;
+}
+
+#globalSearch:focus {
+    box-shadow: 0 0 15px rgba(26, 188, 156, 0.4);
+}
+
+.results-dropdown {
+    position: absolute;
+    top: 60px;
+    left: 0;
+    right: 0;
+    background: #1e293b;
+    border: 1px solid #334155;
+    border-radius: 15px;
+    max-height: 300px;
+    overflow-y: auto;
+    display: none;
+    z-index: 1000;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+}
+
+.result-item {
+    padding: 12px 20px;
+    border-bottom: 1px solid #334155;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+}
+
+.result-item:hover {
+    background: #2d3748;
+}
+
+.result-tag {
+    font-size: 11px;
+    background: #1abc9c;
+    color: #0f172a;
+    padding: 2px 8px;
+    border-radius: 10px;
+    font-weight: bold;
+}
+
     </style>
 </head>
 <body>
 
     <header>
-        <h1>AMARA & TONI TCG</h1>
+        <h1>AMARA & TONI MTG</h1>
         <nav>
             <a href="#">Inicio</a>
             <a href="#mazos">Mazos</a>
@@ -370,6 +430,13 @@
             <p>1</p>
         </div>
     </div>
+
+<section class="container" style="margin-bottom: 40px;">
+    <div class="search-box-master">
+        <input type="text" id="globalSearch" placeholder="🔍 Busca cualquier carta en el Santuario..." onkeyup="ejecutarBusqueda()">
+        <div id="resultsDropdown" class="results-dropdown"></div>
+    </div>
+</section>
 
 <section class="container">
     <h2 class="section-title">Joyas de la Corona</h2>
@@ -479,6 +546,51 @@
     <footer>
         <p>&copy; La colección de Magic - Hecha por Amara y Toni</p>
     </footer>
+<script>
+    // Aquí iréis añadiendo vuestras cartas reales
+const baseDeDatos = [
+    { nombre: "Edu Espinoso", tipo: "Criatura", color: "Verde", stock: 1, loc: "Cimientos" },
+    { nombre: "Jaqueca", tipo: "Encantamiento", color: "Negro", stock: 4, loc: "Cimientos" },
+    { nombre: "Jazal Melena Dorada", tipo: "Criatura", color: "Blanco", stock: 1, loc: "Favoritos" },
+    { nombre: "Urna Dorada", tipo: "Artefacto", color: "Incoloro", stock: 2, loc: "Cimientos" }
+];
 
+function ejecutarBusqueda() {
+    const input = document.getElementById('globalSearch').value.toLowerCase();
+    const dropdown = document.getElementById('resultsDropdown');
+    dropdown.innerHTML = '';
+
+    if (input.length < 2) {
+        dropdown.style.display = 'none';
+        return;
+    }
+
+    const filtrados = baseDeDatos.filter(c => c.nombre.toLowerCase().includes(input));
+
+    if (filtrados.length > 0) {
+        dropdown.style.display = 'block';
+        filtrados.forEach(c => {
+            const div = document.createElement('div');
+            div.className = 'result-item';
+            div.innerHTML = `
+                <span><strong>${c.nombre}</strong> (${c.stock} uds)</span>
+                <span class="result-tag">${c.loc}</span>
+            `;
+            dropdown.appendChild(div);
+        });
+    } else {
+        dropdown.style.display = 'none';
+    }
+}
+
+// Cerrar buscador al hacer clic fuera
+document.addEventListener('click', (e) => {
+    if (!e.target.closest('.search-box-master')) {
+        document.getElementById('resultsDropdown').style.display = 'none';
+    }
+});
+</script>
+
+    
 </body>
 </html>
