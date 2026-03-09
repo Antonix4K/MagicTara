@@ -111,7 +111,7 @@
             padding: 0 20px;
             flex-wrap: wrap;
         }
-
+        
         .stat-card {
             background: #1e293b;
             border: 1px solid var(--primary);
@@ -211,6 +211,61 @@
             from { opacity: 0; transform: translateY(-30px); }
             to { opacity: 1; transform: translateY(0); }
         }
+
+        .joyas-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+    margin-top: 20px;
+}
+
+.joya-card {
+    background: linear-gradient(145deg, #1e293b, #0f172a);
+    border: 2px solid #f1c40f; /* Color Dorado */
+    border-radius: 20px;
+    padding: 20px;
+    text-align: center;
+    position: relative;
+    transition: all 0.5s ease;
+    box-shadow: 0 0 20px rgba(241, 196, 15, 0.1);
+}
+
+.joya-card:hover {
+    transform: scale(1.05) translateY(-10px);
+    box-shadow: 0 0 30px rgba(241, 196, 15, 0.3);
+}
+
+.joya-card img {
+    width: 100%;
+    max-width: 240px;
+    border-radius: 15px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+}
+
+.rarity-badge {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: #f1c40f;
+    color: #000;
+    padding: 5px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.joya-info h3 {
+    font-family: 'Cinzel', serif;
+    color: #f1c40f;
+    margin: 20px 0 10px 0;
+}
+
+.joya-info p {
+    font-size: 0.9rem;
+    color: #cbd5e1;
+    line-height: 1.4;
+}
     </style>
 </head>
 <body>
@@ -243,6 +298,40 @@
             <p>1</p>
         </div>
     </div>
+
+<section class="container">
+    <h2 class="section-title">Joyas de la Corona</h2>
+    <p style="text-align: center; margin-top: -30px; margin-bottom: 40px; opacity: 0.7;">Las piezas más legendarias de nuestra colección</p>
+    
+    <div class="joyas-grid">
+        <div class="joya-card">
+            <div class="rarity-badge">Mítica</div>
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSiC-mvIPMm7m_y3_txeNDPV6p07UNqfrdDvg&s" alt="Jazal Melena Dorada">
+            <div class="joya-info">
+                <h3>Nicol Bolas, Planeswalker</h3>
+                <p>El planeswalker definitivo.</p>
+            </div>
+        </div>
+
+        <div class="joya-card">
+            <div class="rarity-badge">Mítica</div>
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRt__Si22F25Y8CMrALKELftEiaw38k__9xrg&s" alt="Cazacielos leonina">
+            <div class="joya-info">
+                <h3>Sephirot, heredero del planeta</h3>
+                <p>Elimina a los débiles, y hazte fuerte.</p>
+            </div>
+        </div>
+
+        <div class="joya-card">
+            <div class="rarity-badge">Común</div>
+            <img src="https://media.wizards.com/2024/fdn/KJcVGY55Z3Bgi7/sp_a36da18eef.png" alt="Castigo de Elspeth">
+            <div class="joya-info">
+                <h3>Pacifismo</h3>
+                <p>La paz es la solución.</p>
+            </div>
+        </div>
+    </div>
+</section>
 
     <div class="container">
         <h2 class="section-title">Nuestra Colección</h2>
