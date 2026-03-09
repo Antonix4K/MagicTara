@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Santuario - Registro de Compras</title>
+    <style>
+        body { font-family: 'Segoe UI', sans-serif; margin: 0; background: #0f172a; color: white; }
+        header { background: #1e293b; padding: 20px; text-align: center; border-bottom: 3px solid #e74c3c; }
+        .nav-back { padding: 10px; color: #e74c3c; text-decoration: none; font-weight: bold; display: inline-block; }
+        .container { width: 95%; max-width: 1400px; margin: auto; padding: 20px; }
+        
+        .main-layout { display: flex; gap: 30px; align-items: flex-start; }
+        .col-productos { flex: 1; }
+
+        /* TÍTULOS DE COLECCIÓN */
+        .coleccion-header { 
+            background: #2d3748; padding: 10px 20px; border-radius: 8px; 
+            margin: 30px 0 15px 0; border-left: 5px solid #e74c3c;
+            font-family: 'Cinzel', serif; letter-spacing: 1px;
+        }
+
+        /* GRID DE PRODUCTOS */
+        .grid-productos { 
+            display: grid; 
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); 
+            gap: 20px; 
+        }
+        
+        .prod-item { 
+            background: #1e293b; border: 1px solid #334155; border-radius: 12px;
+            padding: 15px; text-align: center; cursor: pointer; transition: 0.3s;
+            position: relative;
+        }
+        .prod-item:hover { border-color: #e74c3c; transform: translateY(-5px); }
+        
+        .precio-tag { 
+            background: #e74c3c; color: white; padding: 2px 8px; 
+            border-radius: 5px; font-size: 12px; font-weight: bold;
+            margin-top: 10px; display: inline-block;
+        }
+
+        /* CHECKBOX DE COMPRADO */
+        .check-buy { position: absolute; top: 10px; right: 10px; zoom: 1.5; cursor: pointer; }
+
+        /* VISOR LATERAL */
+        .visor-lateral {
+            width: 350px; position: sticky; top: 10px; background: #1e293b;
+            border: 2px solid #e74c3c; border-radius: 15px; padding: 20px;
+            text-align: center; height: auto; max-height: 90vh; overflow-y: auto;
+        }
+        #img-prod { width: 100%; border-radius: 10px; display: none; margin-bottom: 15px; }
+        .info-caja { text-align: left; background: rgba(0,0,0,0.2); padding: 15px; border-radius: 10px; }
+        
+        /* Efecto al marcar como comprado */
+        .prod-item:has(.check-buy:checked) { opacity: 0.4; border-color: #2ecc71; filter: grayscale(1); }
+
+        @media (max-width: 900px) { .main-layout { flex-direction: column; } .visor-lateral { width: 100%; } }
+    </style>
+</head>
+<body>
+
+<header>
+    <a href="index.html" class="nav-back">← Volver al Inicio</a>
+    <h1>Almacén de Tesoros Sellados</h1>
+</header>
+
+<div class="container">
+    <div class="main-layout">
+        
+        <div class="col-productos">
+            
+            <div class="coleccion-header"><h2>Marvel: Spiderman Collection</h2></div>
+            <div class="grid-productos">
+                <div class="prod-item" onmouseover="ver('URL_IMAGEN', 'Bundle Spiderman', '49.99€', '8 Sobres, 20 Tierras Foil, 1 Dado gigante, 1 Carta Promo.')">
+                    <input type="checkbox" class="check-buy" id="p1" onchange="save()">
+                    <p>Bundle Spiderman</p>
+                    <span class="precio-tag">49.99€</span>
+                </div>
+                <div class="prod-item" onmouseover="ver('URL_IMAGEN', 'Collector Box', '240€', '12 Sobres de Coleccionista con cartas Full Art.')">
+                    <input type="checkbox" class="check-buy" id="p2" onchange="save()">
+                    <p>Caja de Sobres (Display)</p>
+                    <span class="precio-tag">240€</span>
+                </div>
+            </div>
+
+            <div class="coleccion-header"><h2>El Señor de los Anillos</h2></div>
+            <div class="grid-productos">
+                <div class="prod-item" onmouseover="ver('URL_IMAGEN', 'Mazo Commander: Rohan', '45€', 'Mazo de 100 cartas listo para jugar + 1 sobre de muestra.')">
+                    <input type="checkbox" class="check-buy" id="p3" onchange="save()">
+                    <p>Mazo Commander: Rohan</p>
+                    <span class="precio-tag">45€</span>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="visor-lateral">
+            <p id="hint">Pasa el ratón para ver el contenido</p>
+            <img id="img-prod" src="">
+            <h2 id="tit-prod"></h2>
+            <div class="info-caja">
+                <p><strong>Precio estimado:</strong> <span id="pre-prod" style="color:#e74c3c"></span></p>
+                <p><strong>Contenido:</strong></p>
+                <p id="cont-prod" style="font-size: 14px; color: #cbd5e1;"></p>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<script>
+    function ver(img, tit, pre, cont) {
+        document.getElementById('hint').style.display = 'none';
+        const imagen = document.getElementById('img-prod');
+        imagen.src = img;
+        imagen.style.display = 'block';
+        document.getElementById('tit-prod').innerText = tit;
+        document.getElementById('pre-prod').innerText = pre;
+        document.getElementById('cont-prod').innerText = cont;
+    }
+
+    // Sistema de guardado
+    function save() {
+        const checks = document.querySelectorAll('.check-buy');
+        let data = {};
+        checks.forEach(c => { data[c.id] = c.checked; });
+        localStorage.setItem('compras_sellado', JSON.stringify(data));
+    }
+
+    window.onload = () => {
+        const data = JSON.parse(localStorage.getItem('compras_sellado'));
+        if (data) {
+            for (let id in data) {
+                if (document.getElementById(id)) document.getElementById(id).checked = data[id];
+            }
+        }
+    }
+</script>
+</body>
+</html>
