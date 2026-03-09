@@ -266,6 +266,78 @@
     color: #cbd5e1;
     line-height: 1.4;
 }
+
+.wishlist-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 25px;
+}
+
+.wish-card {
+    background: #1a1a1a;
+    border: 1px dashed #1abc9c; /* Borde discontinuo porque aún no la tenemos */
+    border-radius: 15px;
+    padding: 15px;
+    text-align: center;
+    position: relative;
+    transition: all 0.4s ease;
+}
+
+.wish-card img {
+    width: 100%;
+    max-width: 200px;
+    border-radius: 10px;
+    filter: grayscale(100%); /* Efecto blanco y negro */
+    opacity: 0.6;
+    transition: all 0.4s ease;
+}
+
+.wish-card:hover img {
+    filter: grayscale(0%); /* Cobra color al pasar el ratón */
+    opacity: 1;
+    transform: scale(1.05);
+}
+
+.wish-card:hover {
+    border-style: solid;
+    box-shadow: 0 0 15px rgba(26, 188, 156, 0.2);
+    background: #222;
+}
+
+.wish-tag {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    background: #333;
+    color: #1abc9c;
+    padding: 4px 10px;
+    border-radius: 5px;
+    font-size: 11px;
+    font-weight: bold;
+    border: 1px solid #1abc9c;
+}
+
+.wish-info h3 {
+    margin: 15px 0 5px 0;
+    font-size: 1.2rem;
+    color: #eee;
+}
+
+/* Estilo para el hueco vacío */
+.empty-slot {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 300px;
+    border-color: #444;
+    color: #666;
+}
+
+.plus-icon {
+    font-size: 50px;
+    margin-bottom: 10px;
+}
     </style>
 </head>
 <body>
@@ -329,6 +401,36 @@
                 <h3>Pacifismo</h3>
                 <p>La paz es la solución.</p>
             </div>
+        </div>
+    </div>
+</section>
+
+<section class="container">
+    <h2 class="section-title">Lista de Deseos</h2>
+    <p style="text-align: center; margin-top: -30px; margin-bottom: 40px; opacity: 0.7;">Las próximas adquisiciones para nuestro mazo</p>
+    
+    <div class="wishlist-grid">
+        <div class="wish-card">
+            <div class="wish-tag">Objetivo</div>
+            <img src="https://media.wizards.com/2024/fdn/KJcVGY55Z3Bgi7/sp_6199c7548a.png" alt="Carta Deseada">
+            <div class="wish-info">
+                <h3>Nombre de la Carta</h3>
+                <p>Necesitamos 2 copias más para cerrar el combo del mazo de felinos.</p>
+            </div>
+        </div>
+
+        <div class="wish-card">
+            <div class="wish-tag">Buscando...</div>
+            <img src="https://media.wizards.com/2024/fdn/KJcVGY55Z3Bgi7/sp_52a3358c5c.png" alt="Carta Deseada">
+            <div class="wish-info">
+                <h3>Nombre de la Carta</h3>
+                <p>Fundamental para el control de mesa. La queremos en versión Foil si es posible.</p>
+            </div>
+        </div>
+
+        <div class="wish-card empty-slot">
+            <div class="plus-icon">+</div>
+            <p>¿Qué será lo próximo?</p>
         </div>
     </div>
 </section>
