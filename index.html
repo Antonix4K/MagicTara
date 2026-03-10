@@ -978,7 +978,7 @@ window.onload = function() {
 
     function borrarComentario(id) {
         const pass = prompt("Introduce la CLAVE DE GUARDIÁN para borrar este mensaje:");
-        if (pass === CLAVE_MAESTRA) {
+        if (pass === tonijr123) {
             comentarios = comentarios.filter(c => c.id !== id);
             renderizar();
         } else if (pass !== null) {
