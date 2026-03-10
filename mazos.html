@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Santuario - Armería de Mazos</title>
+    <title>Galeria de Mazos</title>
     <style>
         :root {
             --primary: #1abc9c;
@@ -177,29 +177,57 @@
 
 <div class="container">
     <header id="main-header">
-        <h1>Armería de Mazos</h1>
-        <a href="index.html" class="nav-back">VOLVER AL SANTUARIO</a>
+        <h1>Galeria de Mazos</h1>
+        <a href="index.html" class="nav-back">VOLVER AL PRINCIPIO</a>
     </header>
 
     <div id="deck-selector">
         <div class="deck-menu">
             <div class="deck-card" onclick="abrirMazo('verde')">
                 <div style="font-size: 50px;">🌳</div>
-                <h3>Poder del Bosque</h3>
+                <h3>Coches Tricolor (Aetherdrift)</h3>
                 <p>60 Cartas • Magic</p>
                 <div class="mini-wins">🏆 <span id="mini-wins-verde">0</span> VICTORIAS</div>
             </div>
 
             <div class="deck-card" onclick="abrirMazo('spiderman')">
                 <div style="font-size: 50px;">🕸️</div>
-                <h3>Spider-Verse</h3>
+                <h3>Los Negros rojos (Aetherdrift)</h3>
                 <p>40 Cartas • Marvel</p>
                 <div class="mini-wins">🏆 <span id="mini-wins-spiderman">0</span> VICTORIAS</div>
             </div>
 
             <div class="deck-card" onclick="abrirMazo('esdla')">
                 <div style="font-size: 50px;">💍</div>
-                <h3>La Comunidad</h3>
+                <h3>Tortugas presentación</h3>
+                <p>60 Cartas • ESDLA</p>
+                <div class="mini-wins">🏆 <span id="mini-wins-esdla">0</span> VICTORIAS</div>
+            </div>
+
+            <div class="deck-card" onclick="abrirMazo('esdla')">
+                <div style="font-size: 50px;">💍</div>
+                <h3>Pentacolor (Starter Collection)</h3>
+                <p>60 Cartas • ESDLA</p>
+                <div class="mini-wins">🏆 <span id="mini-wins-esdla">0</span> VICTORIAS</div>
+            </div>
+
+            <div class="deck-card" onclick="abrirMazo('esdla')">
+                <div style="font-size: 50px;">💍</div>
+                <h3>Negros Gigantes (Starter Collection)</h3>
+                <p>60 Cartas • ESDLA</p>
+                <div class="mini-wins">🏆 <span id="mini-wins-esdla">0</span> VICTORIAS</div>
+            </div>
+
+            <div class="deck-card" onclick="abrirMazo('esdla')">
+                <div style="font-size: 50px;">💍</div>
+                <h3>Tricolor (Starter Collection)</h3>
+                <p>60 Cartas • ESDLA</p>
+                <div class="mini-wins">🏆 <span id="mini-wins-esdla">0</span> VICTORIAS</div>
+            </div>
+
+            <div class="deck-card" onclick="abrirMazo('esdla')">
+                <div style="font-size: 50px;">💍</div>
+                <h3>Nicol Bolas jumpstart</h3>
                 <p>60 Cartas • ESDLA</p>
                 <div class="mini-wins">🏆 <span id="mini-wins-esdla">0</span> VICTORIAS</div>
             </div>
@@ -257,7 +285,31 @@
             cartas: [
                 { n: "Gandalf el Mago Blanco", t: "Creature", i: "https://cards.scryfall.io/normal/front/3/a/3ad2051f34d1d.jpg" }
             ]
-        }
+        },
+        esdla: {
+            nombre: "La Comunidad",
+            cartas: [
+                { n: "Gandalf el Mago Blanco", t: "Creature", i: "https://cards.scryfall.io/normal/front/3/a/3ad2051f34d1d.jpg" }
+            ]
+        },
+        esdla: {
+            nombre: "La Comunidad",
+            cartas: [
+                { n: "Gandalf el Mago Blanco", t: "Creature", i: "https://cards.scryfall.io/normal/front/3/a/3ad2051f34d1d.jpg" }
+            ]
+        },
+        esdla: {
+            nombre: "La Comunidad",
+            cartas: [
+                { n: "Gandalf el Mago Blanco", t: "Creature", i: "https://cards.scryfall.io/normal/front/3/a/3ad2051f34d1d.jpg" }
+            ]
+        },
+        esdla: {
+            nombre: "La Comunidad",
+            cartas: [
+                { n: "Gandalf el Mago Blanco", t: "Creature", i: "https://cards.scryfall.io/normal/front/3/a/3ad2051f34d1d.jpg" }
+            ]
+        },
     };
 
     let idActual = "";
