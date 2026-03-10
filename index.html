@@ -474,9 +474,127 @@
     to { opacity: 1; transform: translateX(0); }
 }
 
+.featured-card-section {
+    display: flex;
+    align-items: center;
+    gap: 40px;
+    background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+    border: 1px solid #f1c40f;
+    border-radius: 20px;
+    padding: 40px;
+    margin-top: 20px;
+    position: relative;
+    overflow: hidden;
+}
+
+/* El resplandor detrás de la carta */
+.card-glow-container {
+    position: relative;
+    z-index: 1;
+}
+
+.card-glow-container::after {
+    content: '';
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    width: 120%; height: 120%;
+    background: radial-gradient(circle, rgba(241, 196, 15, 0.3) 0%, transparent 70%);
+    z-index: -1;
+    animation: pulseGlow 4s infinite ease-in-out;
+}
+
+.main-featured-card {
+    width: 260px;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    transition: 0.4s;
+}
+
+.main-featured-card:hover {
+    transform: scale(1.03) rotate(1deg);
+    box-shadow: 0 15px 40px rgba(241, 196, 15, 0.4);
+}
+
+.featured-details { flex: 1; }
+
+.label-semana {
+    color: #f1c40f;
+    font-size: 12px;
+    font-weight: bold;
+    letter-spacing: 2px;
+}
+
+.featured-details h2 {
+    font-size: 32px;
+    margin: 10px 0;
+    color: #fff;
+    text-shadow: 0 2px 10px rgba(0,0,0,0.5);
+}
+
+.semana-tipo {
+    color: #1abc9c;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+.semana-desc {
+    background: rgba(0,0,0,0.2);
+    padding: 20px;
+    border-radius: 10px;
+    line-height: 1.6;
+    color: #cbd5e1;
+}
+
+.tag {
+    display: inline-block;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: bold;
+    margin-top: 20px;
+    margin-right: 10px;
+}
+
+.tag.rara { background: #f1c40f; color: #000; }
+.tag.mazo { background: #1abc9c; color: #000; }
+
+@keyframes pulseGlow {
+    0%, 100% { opacity: 0.5; transform: translate(-50%, -50%) scale(1); }
+    50% { opacity: 1; transform: translate(-50%, -50%) scale(1.1); }
+}
+
+@media (max-width: 800px) {
+    .featured-card-section { flex-direction: column; text-align: center; }
+    .main-featured-card { width: 200px; }
+}
+
     </style>
 </head>
 <body>
+
+<section class="container">
+    <div class="featured-card-section">
+        <div class="card-glow-container">
+            <img src="https://media.wizards.com/2026/tmt/SMkLFRMxku/sp_IZU8YbeY3H.webp" 
+                 class="main-featured-card" id="semana-img" alt="Carta de la Semana">
+        </div>
+        <div class="featured-details">
+            <span class="label-semana">★ LA CARTA DE LA SEMANA ★</span>
+            <h2 id="semana-titulo">Michelangelo, amigo de los mutantes</h2>
+            <p class="semana-tipo">Criatura Legendaria — Druida Planta</p>
+            <div class="semana-desc">
+                <p>"La mejor tortuga después de Facundo."</p>
+                <hr style="border: 0; border-top: 1px solid #334155; margin: 15px 0;">
+                <p><strong>Por qué es especial:</strong> Se papeó al mazo roto de los Planeswalker.</p>
+            </div>
+            <div class="semana-footer">
+                <span class="tag rara">BÁSICA</span>
+                <span class="tag mazo">MAZO TORTUGAS NINJAS-CAJA DE PRESENTACIÓN</span>
+            </div>
+        </div>
+    </div>
+</section>
 
     <header>
         <h1>AMARA & TONI MTG</h1>
@@ -697,7 +815,7 @@ function actualizarTablon() {
     // Lista de posibles noticias (puedes añadir las que quieras)
     const titulares = [
         "ESTADÍSTICA: Progreso en la caja de cimientos 1/11.",
-        "ÚLTIMA HORA: Se ha terminado el apartado de productos que comrar, echale un vistazo.",
+        "ÚLTIMA HORA: Se ha terminado el apartado de productos que comrpar, echale un vistazo.",
         "RUMOR: Quizás podemos obtener el Turtle team-up.",
         "RESULTADOS: Domingo 8 de Marzo Amara 0-2 Toni.",
         "DATOS: El mazo de las tortugas ninja de la caja de presentación, esta bastante fuerte.",
