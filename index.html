@@ -887,7 +887,7 @@ window.onload = function() {
 
 <script>
     // --- CONFIGURACIÓN ---
-    const CLAVE_MAESTRA = "1234"; // <--- CAMBIA ESTO POR TU CONTRASEÑA REAL
+    const CLAVE_MAESTRA = "tonijr123"; // <--- CAMBIA ESTO POR TU CONTRASEÑA REAL
     let comentarios = JSON.parse(localStorage.getItem('santuario_chat_v2')) || [];
 
     function renderizar() {
@@ -978,7 +978,7 @@ window.onload = function() {
 
     function borrarComentario(id) {
         const pass = prompt("Introduce la CLAVE DE GUARDIÁN para borrar este mensaje:");
-        if (pass === tonijr123) {
+        if (pass === CLAVE_MAESTRA) {
             comentarios = comentarios.filter(c => c.id !== id);
             renderizar();
         } else if (pass !== null) {
